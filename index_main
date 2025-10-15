@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The AWAKE Method™ by Cecilia Reinaldo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+   .header-inner {
+     max-width: 1200px;
+     margin: 0 auto;
+     width: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     flex-wrap: wrap;
+   }
+   * {
+      box-sizing: border-box;
+    }
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #0f0f0f;
+      color: #fff;
+    }
+
+    /* header {
+      background: url('https://source.unsplash.com/1600x900/?studio') center/cover no-repeat;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+      max-width: 700px;
+    } */
+
+
+  header {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    /* background: url('images/hero_main-1.jpg') center/cover no-repeat; */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 5%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    background: rgba(0, 0, 0, 0.65);
+    padding: 60px 40px;
+    max-width: 600px;
+    text-align: left;
+    border-radius: 10px;
+  }
+
+  .hero-image {
+    flex: 1 1 400px;
+    max-width: 100%;
+  }
+
+@media (max-width: 768px) {
+
+  html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  header {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 20px;
+    justify-content: center;
+    align-items: center;
+    background: url('hero_mobile.jpg') center/cover no-repeat;
+    overflow: hidden;
+  }
+
+  .hero-text, .hero-image {
+    max-width: 100%;
+    flex: 1 1 100%;
+    padding: 0;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto 0 auto;
+  }
+
+  .hero-text h1 {
+    font-size: 2em;
+  }
+
+  .hero-text h2 {
+    font-size: 1.2em;
+  }
+
+  .hero-text p {
+    font-size: 1em;
+  }
+
+  .hero-content h1 {
+    font-size: 2em;
+  }
+
+  .hero-content h2 {
+    font-size: 1.2em;
+  }
+
+  .hero-content p {
+    font-size: 1em;
+  }
+}
+    .cta-button {
+      margin-top: 20px;
+      padding: 12px 30px;
+      background-color: #e50914;
+      color: white;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .module-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .module-preview div {
+      background: #1f1f1f;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .module-preview img {
+      max-width: 100%;
+      border-radius: 5px;
+    }
+
+    .testimonial {
+      font-style: italic;
+      margin: 20px 0;
+      border-left: 4px solid #e50914;
+      padding-left: 15px;
+    }
+
+    form {
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 8px;
+    }
+
+    form input, form button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 4px;
+    }
+
+    form input {
+      background: #2b2b2b;
+      color: white;
+    }
+
+    form button {
+      background-color: #e50914;
+      color: white;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.9em;
+      background-color: #000;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2em;
+      }
+    }
+    
+   @keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-content {
+  animation: fadeInUp 1.2s ease-out both;
+}
+.split-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: auto;
+  flex-wrap: wrap;
+  gap: 40px;
+  background-color: #121212;
+}
+
+.split-section.reverse {
+  flex-direction: row-reverse;
+  background-color: #1a1a1a;
+}
+
+.split-text {
+  flex: 1 1 500px;
+  color: #fff;
+}
+
+.split-text h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.split-text p, .split-text ul {
+  font-size: 1.1em;
+  line-height: 1.7;
+}
+
+.split-text ul {
+  padding-left: 20px;
+}
+
+.split-image {
+  flex: 1 1 500px;
+  text-align: center;
+}
+
+.split-image img {
+  width: 100%;
+  border-radius: 10px;
+  max-height: 400px;
+  object-fit: cover;
+  object-position: top; 
+}
+.animate-fade {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .animate-fade.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+  <!-- Google reCAPTCHA v3 -->
+  <script src="https://www.google.com/recaptcha/api.js?render=6LfeyJArAAAAACsL8QodlIiLoKzOKtkbeGHvVMxE"></script>
+</head> 
+<body>
+ <!-- <header style="position: relative; height: 100vh; background: url('images/8\ \(1\).png') center/cover no-repeat; color: white; display: flex; align-items: center; justify-content: flex-start; padding-left: 5%;">
+  <div class="hero-content" style="background: rgba(0, 0, 0, 0.65); padding: 60px 40px; max-width: 600px; text-align: left; border-radius: 10px;">
+    <h1 style="font-size: 3em; font-weight: 600; margin-bottom: 20px;">Sell More. Stand Out. Stay Consistent.</h1>
+    <h2 style="font-size: 1.5em; font-weight: 400; margin-bottom: 30px;">The AWAKE Method™ by Cecilia Reinaldo</h2>
+    <p style="font-size: 1.1em; line-height: 1.7;">
+      Sales has changed, and so has the way people buy. <br><br>
+      In a world full of noise, having a good attitude and hoping for referrals won’t cut it.
+      Clients want to feel something real. They want clarity, not persuasion. Presence, not pressure.
+      <br><br>
+      <strong>The AWAKE Method™</strong> is designed for professionals who are ready to bring more intention to how they sell, serve, and show up.
+    </p>
+    <button class="cta-button" style="margin-top: 30px; padding: 14px 34px; background-color: #e50914; border: none; border-radius: 4px; font-size: 1.1em; font-weight: bold; cursor: pointer;">Join the Program</button>
+  </div>
+</header> -->
+
+
+<!-- <header>
+  <div class="hero-content">
+    <h1>Sell More. Stand Out. Stay Consistent.</h1>
+    <h2>The AWAKE Method™ by Cecilia Reinaldo</h2>
+    <p>
+      Sales has changed, and so has the way people buy.<br><br>
+      In a world full of noise, having a good attitude and hoping for referrals won’t cut it.
+      Clients want to feel something real. They want clarity, not persuasion. Presence, not pressure.
+      <br><br>
+      <strong>The AWAKE Method™</strong> is designed for professionals who are ready to bring more intention to how they sell, serve, and show up.
+    </p>
+    <button class="cta-button">Join the Program</button>
+  </div>
+</header> -->
+
+<header style="background-color: #0f0f0f; color: white; padding: 60px 5%;">
+  <div class="header-inner">
+    <div class="hero-text" style="flex: 1 1 500px; max-width: 600px; padding-right: 30px;">
+      <h1 style="font-size: 3em; font-weight: 600; margin-bottom: 20px;">Sell More. Stand Out. Stay Consistent.</h1>
+      <h2 style="font-size: 1.5em; font-weight: 400; margin-bottom: 30px;">The AWAKE Method™ by Cecilia Reinaldo</h2>
+      <p style="font-size: 1.1em; line-height: 1.7;">
+        Sales has changed, and so has the way people buy.<br><br>
+        In a world full of noise, having a good attitude and hoping for referrals won’t cut it.
+        Clients want to feel something real. They want clarity, not persuasion. Presence, not pressure.
+        <br><br>
+        <strong>The AWAKE Method™</strong> is designed for professionals who are ready to bring more intention to how they sell, serve, and show up.
+      </p>
+      <button class="cta-button" onclick="openModal()">Join the Program</button>
+    </div>
+    <div class="hero-image" style="flex: 1 1 400px; max-width: 500px;">
+      <img src="images/hero_banner.jpg" alt="Cecilia Reinaldo" style="width: 100%; border-radius: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.4);">
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="split-section animate-fade">
+    <div class="split-text">
+      <h2>Why It Works</h2>
+      <p>
+        This isn’t a checklist or a script. The AWAKE Method™ helps you operate from a place of alignment. When you're clear on who you are and how you help, clients respond differently. So do results.<br><br>
+        You’ll learn how to guide conversations that build trust, how to create a brand that reflects your values and how to deliver an experience people talk about long after the deal closes.<br><br>
+        It's not about changing who you are. It's about dialing up what makes you effective, and being consistent about it.
+      </p>
+    </div>
+    <div class="split-image">
+      <img src="images/why_it_works_1.jpg" alt="Why It Works">
+      <!-- <img src="images/09.jpg" alt="Why It Works"> -->
+    </div>
+  </section>
+
+  <section class="split-section reverse animate-fade">
+    <div class="split-text">
+      <h2>Who It's For</h2>
+      <p>
+        You work in a client-first industry. Real estate, finance, consulting, luxury services. You’re good at what you do, but something’s missing. Maybe you feel like your growth has stalled. Maybe your process isn’t clear, or perhaps you're simply tired of starting strong and losing momentum.<br><br>
+        The AWAKE Method™ is for professionals ready to stop coasting and start leading with intention.
+      </p>
+    </div>
+    <div class="split-image">
+      <img src="images/who_its_for.jpg" alt="Who It's For">
+      <!-- <img src="images/02.jpg" alt="Why It Works"> -->
+    </div>
+  </section>
+
+  <section class="split-section animate-fade">
+    <div class="split-text">
+      <h2>What You'll Learn</h2>
+      <p>
+        You’ll learn how to sell without sounding like you're selling, to identify needs clients haven’t voiced yet, and how to follow up without feeling awkward or pushy.<br><br>
+        You’ll build a personal brand that doesn’t just get attention, it earns trust. And you'll learn how to turn that trust into lasting relationships, not just quick wins.<br><br>
+        There’s also a strong focus on structure. The AWAKE Method™ helps you build routines, track progress and stay accountable to what actually moves your business forward.
+      </p>
+    </div>
+    <div class="split-image">
+      <img src="images/what_you_learn_1.jpg" alt="What You'll Learn">
+      <!-- <img src="images/10.jpg" alt="Why It Works"> -->
+    </div>
+  </section>
+
+  <section class="split-section reverse animate-fade">
+    <div class="split-text">
+      <h2>Why Hospitality Over Service</h2>
+      <p>
+        Service is reactive. Hospitality is intentional; it’s the difference between fulfilling a request and making someone feel seen.<br><br>
+        When you treat every touchpoint as a moment to connect, you stop being just another provider: You become the person they remember, the one they refer.<br><br>
+        That kind of experience isn’t about doing more. It’s about doing it differently.
+      </p>
+    </div>
+    <div class="split-image">
+      <img src="images/hospitality_1.jpg" alt="Why Hospitality Over Service">
+      <!-- <img src="images/08.jpg" alt="Why It Works"> -->
+    </div>
+  </section>
+
+  <section class="split-section animate-fade">
+    <div class="split-text">
+      <h2>About Cecilia</h2>
+      <p>
+        Cecilia Reinaldo is the creator of The AWAKE Method™ and a trusted mentor to professionals who want to grow with purpose.<br><br>
+        She’s worked with hundreds of sales leaders and entrepreneurs to refine their message, sharpen their process and deliver meaningful client experiences.<br><br>
+        This method is built from the patterns she’s seen over decades in the field. It’s clear, it’s real and it works.
+      </p>
+    </div>
+    <div class="split-image">
+      <img src="images/05.jpg" alt="About Cecilia">
+    </div>
+  </section>
+
+  <section class="video-carousel-section animate-fade">
+    <h2 style="text-align: center; margin-bottom: 40px;">A dose of inspiration,whenever you need it</h2>
+    <div class="carousel-container">
+      <div class="carousel-track">
+        <!-- <video controls poster="thumbnails/video01.jpg">
+          <source src="videos/video_01.mp4" type="video/mp4"> 
+        </video>
+         <video controls poster="thumbnails/video02.jpg">
+          <source src="videos/video_02.mp4" type="video/mp4">
+        </video>
+         <video controls poster="thumbnails/video03.jpg">
+          <source src="videos/video_03.mp4" type="video/mp4">
+        </video>
+         <video controls poster="thumbnails/video04.jpg">
+          <source src="videos/video_04.mp4" type="video/mp4">
+        </video>
+         <video controls poster="thumbnails/video05.jpg">
+          <source src="videos/video_05.mp4" type="video/mp4">
+        </video> -->
+
+        <video src="videos/video_01.mp4" controls></video>
+        <video src="videos/video_02.mp4" controls></video>
+        <video src="videos/video_03.mp4" controls></video>
+        <video src="videos/video_04.mp4" controls></video>
+        <video src="videos/video_05.mp4" controls></video>
+      
+         </div>
+      <button class="carousel-button prev" onclick="scrollCarousel(-1)">&#10094;</button>
+      <button class="carousel-button next" onclick="scrollCarousel(1)">&#10095;</button>
+    </div>
+  </section>
+
+  <section class="split-section reverse animate-fade">
+    <div class="split-text">
+      <h2>Coming Soon: The AWAKE Mentorship Program</h2>
+      <p>
+        We’re launching a new online mentorship program designed for professionals who want guidance, structure and real-time feedback.<br><br>
+        You’ll get coaching directly from Cecilia, learn advanced strategy and join a group of people as committed to growth as you are.<br><br>
+        Spots will be limited. Join the list to be the first to know when enrollment opens.
+      </p>
+      <button class="cta-button" onclick="openModal()">Subscribe for Updates</button>
+    </div>
+    <div class="split-image">
+      <img src="images/mentorship_1.jpg" alt="Mentorship Program">
+    </div>
+  </section>
+
+  
+<section class="split-section animate-fade">
+    <div class="split-text">
+      <h2>Start with the AWAKE Sales Playbook</h2>
+      <p>
+        If you’re ready to get to work, this is where to begin.<br><br>
+        The AWAKE Sales Playbook gives you a practical starting point. You’ll get strategies you can use today to improve your sales conversations, refine your message and raise the bar for your client experience.<br><br>
+        It’s clear, useful and free.
+      </p>
+      <button class="cta-button" onclick="openModal()">Download the Playbook</button>
+    </div>
+    <div class="split-image">
+      <img src="images/playbook_1.jpg" alt="Sales Playbook">
+    </div>
+  </section>
+
+  <section class="split-section reverse animate-fade">
+    <div class="split-text">
+      <h2>Ready to Step Into What’s Next</h2>
+      <p>
+        This method helps you stop chasing and start leading. No shortcuts. No fluff - just the right tools, the right mindset, and a better way to build your business.
+      </p>
+      <div style="margin-top: 20px;">
+        <button class="cta-button" onclick="openModal()">Join the Method</button>
+        <!-- <button class="cta-button" onclick="openModal()">Download the Playbook</button>
+        <button class="cta-button" onclick="openModal()">Subscribe for Mentorship</button> -->
+      </div>
+    </div>
+    <div class="split-image">
+      <img src="images/11.jpg"Step Into What’s Next">
+    </div>
+  </section>
+</main>
+
+
+<!-- Modal -->
+<div id="playbookModal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; flex-direction: column;">
+  <div style="background: #1a1a1a; padding: 40px; border-radius: 10px; max-width: 500px; width: 90%; text-align: center; position: relative; color: white;">
+    <span onclick="closeModal()" style="position: absolute; top: 10px; right: 20px; cursor: pointer; font-size: 24px;">&times;</span>
+    <h2>Register for Early Access</h2>
+    <p id="form-description">Fill out your details to receive the exclusive Sales Playbook and be first to know when mentorship doors open.</p>
+    <form id="register-form" style="margin-top: 20px;">
+      <input type="text" id="name" placeholder="Full Name" required style="width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: none; background-color: #2b2b2b; color: white;">
+      <input type="email" id="email" placeholder="Email Address" required style="width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: none; background-color: #2b2b2b; color: white;">
+      <input type="tel" id="phone" placeholder="Phone Number" required style="width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: none; background-color: #2b2b2b; color: white;">
+      <button type="submit" class="cta-button">Register</button>
+    </form>
+    <button id="download-button" class="cta-button" style="display: none;" onclick="window.open('https://awake-method.com/file_archive/Real_Estate_Sales_Playbook.pdf', '_blank')">Download the Playbook</button>
+  </div>
+</div>
+
+
+<style>
+  .animate-fade {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .animate-fade.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+    .video-carousel-section {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 60px 20px;
+      background-color: #121212;
+    }
+
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      overflow-x: hidden;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+      gap: 20px;
+      flex-wrap: nowrap;
+    }
+
+    .carousel-track video {
+      width: 455px;
+      height: 805px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2em;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 10;
+      border-radius: 50%;
+    }
+
+    .carousel-button.prev {
+      left: 10px;
+    }
+
+    .carousel-button.next {
+      right: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .carousel-track {
+        gap: 10px;
+      }
+
+      .carousel-track video {
+        width: 80vw;
+        height: calc(80vw * (805 / 455));
+      }
+    }
+</style>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.animate-fade').forEach(el => observer.observe(el));
+
+    function openModal() {
+    const modal = document.getElementById('playbookModal');
+    modal.style.display = 'flex';
+    modal.style.alignItems = 'center';
+    modal.style.justifyContent = 'center';
+    modal.style.flexDirection = 'column';
+  }
+
+  function closeModal() {
+    document.getElementById('playbookModal').style.display = 'none';
+  }
+
+  grecaptcha.ready(function () {
+    document.getElementById('register-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      if (!name || !email || !phone) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      grecaptcha.execute('6LfeyJArAAAAACsL8QodlIiLoKzOKtkbeGHvVMxE', { action: 'submit' }).then(function (token) {
+        console.log('reCAPTCHA token:', token);
+        console.log('Form Submitted:', { name, email, phone });
+
+        // Show the download button and hide the form
+        document.getElementById('register-form').style.display = 'none';
+        document.getElementById('form-description').style.display = 'none';
+        document.getElementById('download-button').style.display = 'inline-block';
+      });
+    });
+  });
+
+  let scrollIndex = 0;
+  function scrollCarousel(direction) {
+    const track = document.querySelector('.carousel-track');
+    const videoElem = track.querySelector('video');
+    const itemWidth = videoElem.offsetWidth + 20; // 20px gap
+    const visibleItems = Math.floor(track.parentElement.offsetWidth / itemWidth);
+    const maxIndex = track.children.length - visibleItems;
+    scrollIndex += direction;
+    scrollIndex = Math.max(0, Math.min(scrollIndex, maxIndex));
+    track.style.transform = `translateX(-${scrollIndex * itemWidth}px)`;
+  }
+
+document.getElementById('register-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+
+  const formData = new URLSearchParams();
+  formData.append('name', name);
+  formData.append('email', email);
+  formData.append('phone', phone);
+
+  fetch('https://script.google.com/a/macros/ceciliareinaldo.com/s/AKfycbz29git9jqnbHqGTBldvkF_hphqba4Xv8rxGH71MPrPLlJZSYk7oDexgD2I51l09PH5/exec', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Success:', data);
+
+    // Update UI
+    document.getElementById('register-form').style.display = 'none';
+    document.getElementById('form-description').style.display = 'none';
+    document.getElementById('download-button').style.display = 'inline-block';
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+});
+
+// document.getElementById('register-form').addEventListener('submit', function (e) {
+//   e.preventDefault();
+
+//   const name = document.getElementById('name').value.trim();
+//   const email = document.getElementById('email').value.trim();
+//   const phone = document.getElementById('phone').value.trim();
+
+//   const formData = new URLSearchParams();
+//   formData.append('name', name);
+//   formData.append('email', email);
+//   formData.append('phone', phone);
+
+//   //https://script.google.com/macros/s/AKfycbycgOE0Ao3mUgnx7W71wqzIQDYCLNgLiX4ctR5VPyEygml1P9XHD_UOnX2K2cj9ZlMH/exec
+
+//   fetch('https://script.google.com/macros/s/AKfycbycgOE0Ao3mUgnx7W71wqzIQDYCLNgLiX4ctR5VPyEygml1P9XHD_UOnX2K2cj9ZlMH/exec', {
+//     method: 'POST',
+//     body: formData
+//   })
+//   .then(response => response.json())
+//   .then(data => {
+//     console.log('Success:', data);
+//     document.getElementById('register-form').style.display = 'none';
+//     document.getElementById('form-description').style.display = 'none';
+//     document.getElementById('download-button').style.display = 'inline-block';
+//   })
+//   .catch(error => {
+//     console.error('Error:', error);
+//     alert("Submission failed. Please try again.");
+//   });
+// });
+
+</script>
+
+
+ <footer class="bg-black text-center py-6 text-pink-300">
+    &copy; 2025 The AWAKE Method™ by Cecilia Reinaldo. All rights reserved.
+  </footer>
+</body>
+</html>
