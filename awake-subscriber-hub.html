@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWAKE — Content & Subscriber Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0c0b0a;--surface:#141210;--surface2:#1c1917;--surface3:#242119;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --pink:#e8185c;--pink-dim:rgba(232,24,92,0.14);--pink-glow:rgba(232,24,92,0.07);
+  --text:#f0ece6;--text2:rgba(240,236,230,0.55);--text3:rgba(240,236,230,0.28);
+  --green:#22c55e;--green-dim:rgba(34,197,94,0.12);
+  --amber:#f59e0b;--amber-dim:rgba(245,158,11,0.12);
+  --blue:#60a5fa;--blue-dim:rgba(96,165,250,0.12);
+  --wa:#25D366;--wa-dim:rgba(37,211,102,0.1);
+  --serif:'Playfair Display',serif;--sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;display:flex;overflow-x:hidden}
+
+/* ── SIDEBAR ── */
+.sidebar{width:228px;min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:50;overflow-y:auto}
+.sidebar-logo{padding:22px 20px 18px;border-bottom:1px solid var(--border);flex-shrink:0}
+.logo-word{font-family:var(--serif);font-weight:900;font-size:1.28rem;letter-spacing:0.1em}
+.logo-word .aw{color:var(--text)}.logo-word .ake{color:var(--pink)}
+.logo-sub{font-size:0.48rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--text3);margin-top:2px}
+.nav-section{padding:14px 20px 4px;font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--text3)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:0.82rem;font-weight:500;color:var(--text2);cursor:pointer;transition:all 0.15s;border-left:2px solid transparent}
+.nav-item:hover{color:var(--text);background:var(--surface2)}
+.nav-item.active{color:var(--pink);background:var(--pink-glow);border-left-color:var(--pink)}
+.nav-icon{width:15px;height:15px;flex-shrink:0;opacity:0.65}
+.nav-item.active .nav-icon{opacity:1}
+.sidebar-foot{padding:14px 20px;border-top:1px solid var(--border);margin-top:auto;flex-shrink:0}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+/* ── MAIN ── */
+.main{margin-left:228px;flex:1;min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:40;gap:1rem}
+.topbar-title{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--text);white-space:nowrap}
+.topbar-title span{color:var(--pink)}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.btn{background:var(--surface2);border:1px solid var(--border2);color:var(--text2);padding:6px 14px;border-radius:4px;font-size:0.77rem;font-weight:500;cursor:pointer;font-family:var(--sans);transition:all 0.15s;white-space:nowrap}
+.btn:hover{border-color:var(--pink);color:var(--pink)}
+.btn-pink{background:var(--pink);border-color:var(--pink);color:#fff}
+.btn-pink:hover{background:#ff4d84;color:#fff;border-color:#ff4d84}
+.btn-wa{background:var(--wa);border-color:var(--wa);color:#fff}
+.btn-wa:hover{opacity:0.88;color:#fff}
+.content{padding:24px 28px;flex:1}
+.page{display:none}.page.active{display:block}
+
+/* ── STATS ROW ── */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 18px}
+.stat-label{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.stat-val{font-family:var(--serif);font-size:1.9rem;font-weight:900;line-height:1;color:var(--text)}
+.stat-val.pink{color:var(--pink)}
+.stat-delta{font-size:0.72rem;color:var(--green);margin-top:3px}
+.stat-delta.neg{color:#f87171}
+
+/* ── SECTION HEADER ── */
+.sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:1rem;flex-wrap:wrap}
+.sec-title{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--text)}
+.sec-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ── FILTER BAR ── */
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.filter-pill{padding:5px 14px;border-radius:20px;font-size:0.73rem;font-weight:500;cursor:pointer;border:1px solid var(--border);color:var(--text2);background:none;font-family:var(--sans);transition:all 0.15s;white-space:nowrap}
+.filter-pill:hover{border-color:var(--pink);color:var(--pink)}
+.filter-pill.active{background:var(--pink);border-color:var(--pink);color:#fff}
+.search-input{flex:1;max-width:280px;background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:6px 12px;font-family:var(--sans);font-size:0.82rem;color:var(--text);outline:none;transition:border-color 0.15s}
+.search-input:focus{border-color:var(--pink)}
+.search-input::placeholder{color:var(--text3)}
+
+/* ── TABLE ── */
+.tbl{background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;width:100%}
+.tbl-hd{padding:10px 18px;border-bottom:1px solid var(--border);font-size:0.63rem;letter-spacing:0.13em;text-transform:uppercase;color:var(--text3);display:grid;gap:12px;align-items:center}
+.tbl-row{padding:12px 18px;border-bottom:1px solid var(--border);display:grid;gap:12px;align-items:center;transition:background 0.12s;cursor:pointer}
+.tbl-row:last-child{border-bottom:none}
+.tbl-row:hover{background:var(--surface2)}
+.cell-name{display:flex;align-items:center;gap:10px}
+.avatar{width:30px;height:30px;border-radius:50%;background:var(--pink-dim);display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:600;color:var(--pink);flex-shrink:0;font-family:var(--mono)}
+.cell-main{font-size:0.86rem;font-weight:500;color:var(--text)}
+.cell-sub{font-size:0.7rem;color:var(--text3);margin-top:1px}
+.cell-text{font-size:0.83rem;color:var(--text2)}
+.cell-mono{font-family:var(--mono);font-size:0.75rem;color:var(--text3)}
+.badge{display:inline-flex;align-items:center;font-size:0.65rem;font-weight:600;padding:2px 7px;border-radius:3px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap}
+.bg{background:var(--green-dim);color:var(--green)}
+.ba{background:var(--amber-dim);color:var(--amber)}
+.bp{background:var(--pink-dim);color:var(--pink)}
+.bb{background:var(--blue-dim);color:var(--blue)}
+.bgr{background:rgba(255,255,255,0.06);color:var(--text3)}
+.service-tags{display:flex;gap:4px;flex-wrap:wrap}
+.chk{width:15px;height:15px;border:1.5px solid var(--border2);border-radius:3px;cursor:pointer;flex-shrink:0;accent-color:var(--pink)}
+.row-actions{display:flex;gap:6px;opacity:0}
+.tbl-row:hover .row-actions{opacity:1}
+.row-btn{background:none;border:1px solid var(--border);color:var(--text3);padding:3px 8px;border-radius:3px;font-size:0.68rem;cursor:pointer;font-family:var(--sans);transition:all 0.15s}
+.row-btn:hover{border-color:var(--pink);color:var(--pink)}
+.row-btn.wa{border-color:rgba(37,211,102,0.3);color:var(--wa)}
+
+/* ── COMPOSER PANEL ── */
+.composer{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px}
+.composer-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.composer-label{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3);font-weight:600}
+.channel-badge{display:flex;align-items:center;gap:5px;font-size:0.75rem;font-weight:500}
+.fg{display:flex;flex-direction:column;gap:4px;margin-bottom:14px}
+.fl{font-size:0.63rem;letter-spacing:0.13em;text-transform:uppercase;color:var(--text3);font-weight:600}
+.fi{background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:9px 12px;font-family:var(--sans);font-size:0.86rem;color:var(--text);outline:none;transition:border-color 0.15s;width:100%}
+.fi:focus{border-color:var(--pink)}
+.fi::placeholder{color:var(--text3)}
+textarea.fi{resize:vertical;min-height:100px;line-height:1.6}
+select.fi option{background:var(--surface2)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.composer-foot{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+.char-count{font-family:var(--mono);font-size:0.7rem;color:var(--text3)}
+
+/* ── MANYCHAT FLOW ── */
+.flow-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:20px;margin-bottom:12px}
+.flow-hd{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.flow-icon{width:34px;height:34px;background:var(--pink-dim);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0}
+.flow-name{font-weight:600;font-size:0.92rem;color:var(--text)}
+.flow-sub{font-size:0.72rem;color:var(--text3);margin-top:2px}
+.flow-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.flow-step{display:flex;align-items:flex-start;gap:12px}
+.step-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.step-dot{width:9px;height:9px;border-radius:50%;background:var(--pink);flex-shrink:0;margin-top:3px}
+.step-dot.dim{background:var(--surface3);border:1.5px solid var(--border2)}
+.step-conn{width:1px;height:24px;background:var(--border2);margin-top:3px}
+.step-trigger{font-size:0.63rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-bottom:2px}
+.step-text{font-size:0.82rem;color:var(--text2);line-height:1.52}
+.step-delay{font-size:0.7rem;font-family:var(--mono);color:var(--amber);margin-top:2px}
+.flow-metrics{display:flex;gap:18px;padding-top:12px;border-top:1px solid var(--border)}
+.fm-num{font-family:var(--serif);font-size:1.35rem;font-weight:900;color:var(--text)}
+.fm-label{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-top:2px}
+
+/* ── CAMPAIGN LIST ── */
+.campaign-item{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:14px 18px;display:flex;align-items:center;gap:14px;margin-bottom:10px;cursor:pointer;transition:border-color 0.15s}
+.campaign-item:hover{border-color:var(--border2)}
+.campaign-icon{width:34px;height:34px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0}
+.campaign-info{flex:1}
+.campaign-name{font-size:0.88rem;font-weight:600;color:var(--text);margin-bottom:2px}
+.campaign-meta{font-size:0.72rem;color:var(--text3)}
+.c-metrics{display:flex;gap:18px;flex-shrink:0}
+.c-metric-num{font-family:var(--mono);font-size:0.86rem;font-weight:500;color:var(--text)}
+.c-metric-label{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-top:1px}
+
+/* ── INTEGRATION CARDS ── */
+.int-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.int-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px;transition:border-color 0.15s}
+.int-card:hover{border-color:var(--border2)}
+.int-card.connected{border-color:rgba(34,197,94,0.3)}
+.int-icon{width:38px;height:38px;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:1.2rem}
+.int-name{font-weight:600;font-size:0.88rem;margin-bottom:3px;color:var(--text)}
+.int-desc{font-size:0.76rem;color:var(--text3);line-height:1.52;margin-bottom:12px}
+.int-setup{font-size:0.74rem;color:var(--text2);line-height:1.5;margin-bottom:12px;background:var(--surface2);border-radius:4px;padding:10px 12px;border-left:2px solid var(--pink)}
+.int-foot{display:flex;align-items:center;justify-content:space-between}
+.int-badge{font-size:0.62rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:3px 7px;border-radius:3px}
+.int-badge.connected{background:var(--green-dim);color:var(--green)}
+.int-badge.pending{background:var(--amber-dim);color:var(--amber)}
+.int-badge.optional{background:var(--blue-dim);color:var(--blue)}
+.int-btn{font-size:0.72rem;font-weight:500;color:var(--text3);cursor:pointer;background:none;border:none;font-family:var(--sans);transition:color 0.15s}
+.int-btn:hover{color:var(--pink)}
+
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:200;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:24px;width:90%;max-width:520px;max-height:90vh;overflow-y:auto}
+.modal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.modal-title{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--text)}
+.modal-close{background:none;border:none;color:var(--text3);font-size:1.2rem;cursor:pointer;padding:2px 6px;border-radius:3px}
+.modal-close:hover{color:var(--text);background:var(--surface2)}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--surface2);border:1px solid var(--border2);border-radius:6px;padding:12px 18px;font-size:0.84rem;color:var(--text);z-index:300;transform:translateY(80px);opacity:0;transition:all 0.3s;max-width:320px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{border-left:3px solid var(--green);color:var(--green)}
+.toast.error{border-left:3px solid var(--pink);color:var(--pink)}
+
+/* ── MISC ── */
+.divider{border:none;border-top:1px solid var(--border);margin:20px 0}
+.empty{text-align:center;padding:36px;color:var(--text3);font-size:0.88rem}
+.tag-list{display:flex;gap:5px;flex-wrap:wrap}
+.tag{display:inline-flex;font-size:0.67rem;font-weight:500;padding:2px 7px;border-radius:3px;background:var(--surface3);color:var(--text2);border:1px solid var(--border)}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.wa-msg-preview{background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.2);border-radius:4px;padding:12px 14px;font-size:0.85rem;color:rgba(240,236,230,0.7);line-height:1.6;min-height:60px;font-style:italic;margin-top:6px}
+.bulk-bar{background:var(--pink-dim);border:1px solid rgba(232,24,92,0.25);border-radius:6px;padding:10px 16px;display:none;align-items:center;gap:12px;margin-bottom:14px}
+.bulk-bar.visible{display:flex}
+.bulk-count{font-size:0.82rem;font-weight:500;color:var(--pink)}
+.analytics-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.analytics-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px}
+.analytics-title{font-size:0.63rem;letter-spacing:0.13em;text-transform:uppercase;color:var(--text3);margin-bottom:12px}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.bar-lbl{font-size:0.75rem;color:var(--text2);width:70px;flex-shrink:0}
+.bar-track{flex:1;background:var(--surface3);border-radius:2px;height:7px;overflow:hidden}
+.bar-fill{height:100%;border-radius:2px;background:var(--pink)}
+.bar-val{font-family:var(--mono);font-size:0.7rem;color:var(--text3);width:28px;text-align:right;flex-shrink:0}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-word"><span class="aw">AW</span><span class="ake">AKE</span></div>
+    <div class="logo-sub">Content Hub</div>
+  </div>
+  <nav>
+    <div class="nav-section">Overview</div>
+    <div class="nav-item active" onclick="go('dashboard')">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+      <span>Dashboard</span>
+    </div>
+
+    <div class="nav-section">Subscribers</div>
+    <div class="nav-item" onclick="go('all-subscribers')">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+      <span>All Subscribers</span>
+    </div>
+    <div class="nav-item" onclick="go('by-service')">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h8M2 12h5"/></svg>
+      <span>By Service</span>
+    </div>
+    <div class="nav-item" onclick="go('add-subscriber')">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="6" r="3"/><path d="M2 14c0-3 2.7-5 6-5s6 2 6 5"/><path d="M12 3v4M10 5h4"/></svg>
+      <span>Add Subscriber</span>
+    </div>
+
+    <div class="nav-section">Messaging</div>
+    <div class="nav-item" onclick="go('whatsapp')">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 8A6 6 0 1 1 2.3 11.3L1 15l3.7-1.3A6 6 0 0 1 14 8z"/></svg>
+      <span>WhatsApp</span>
+    </div>
+    <div class="nav-item" onclick="go('edm')">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="10" rx="1"/><path d="M1 3l7 6 7-6"/></svg>
+      <span>EDM Campaigns</span>
+    </div>
+    <div class="nav-item" onclick="go('manychat')">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 4l6 5 6-5"/><rect x="1" y="3" width="14" height="10" rx="1"/></svg>
+      <span>ManyChat Flows</span>
+    </div>
+
+    <div class="nav-section">Reports</div>
+    <div class="nav-item" onclick="go('analytics')">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12 6 7l4 3 4-6"/></svg>
+      <span>Analytics</span>
+    </div>
+
+    <div class="nav-section">Settings</div>
+    <div class="nav-item" onclick="go('integrations')">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.2 3.2l1.4 1.4M11.4 11.4l1.4 1.4M11.4 3.2l-1.4 1.4M4.6 11.4l-1.4 1.4"/></svg>
+      <span>Integrations</span>
+    </div>
+  </nav>
+  <div class="sidebar-foot">
+    <div style="display:flex;align-items:center;gap:8px;font-size:0.73rem;color:var(--text3)">
+      <span class="status-dot"></span><span>Hub active</span>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-title">AWAKE <span id="page-title">Dashboard</span></div>
+    <div class="topbar-right">
+      <button class="btn" onclick="go('add-subscriber')">+ Add Subscriber</button>
+      <button class="btn btn-pink" onclick="go('whatsapp')">Send Message</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ═══ DASHBOARD ═══ -->
+    <div class="page active" id="page-dashboard">
+      <div class="stats">
+        <div class="stat-card"><div class="stat-label">Total Subscribers</div><div class="stat-val pink" id="stat-total">0</div><div class="stat-delta" id="stat-delta">Loading...</div></div>
+        <div class="stat-card"><div class="stat-label">Newsletter Only</div><div class="stat-val" id="stat-newsletter">0</div></div>
+        <div class="stat-card"><div class="stat-label">WhatsApp Community</div><div class="stat-val" id="stat-wa">0</div></div>
+        <div class="stat-card"><div class="stat-label">Keynote Enquiries</div><div class="stat-val" id="stat-keynote">0</div></div>
+        <div class="stat-card"><div class="stat-label">Masterclass Enquiries</div><div class="stat-val" id="stat-masterclass">0</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:16px">
+        <!-- Recent subscribers -->
+        <div>
+          <div class="sec-hd">
+            <div class="sec-title">Recent Subscribers</div>
+            <button class="btn" onclick="go('all-subscribers')">View All</button>
+          </div>
+          <div class="tbl" id="recent-table">
+            <div class="tbl-hd" style="grid-template-columns:1fr 110px 100px">
+              <span>Subscriber</span><span>Service</span><span>Joined</span>
+            </div>
+            <div id="recent-rows"><div class="empty">No subscribers yet</div></div>
+          </div>
+        </div>
+
+        <!-- Quick actions -->
+        <div>
+          <div class="sec-hd"><div class="sec-title">Quick Actions</div></div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="campaign-item" onclick="go('whatsapp')">
+              <div class="campaign-icon" style="background:var(--wa-dim)">💬</div>
+              <div class="campaign-info"><div class="campaign-name">Send WhatsApp Broadcast</div><div class="campaign-meta">Message a segment or all subscribers</div></div>
+            </div>
+            <div class="campaign-item" onclick="go('edm')">
+              <div class="campaign-icon" style="background:var(--pink-dim)">✉️</div>
+              <div class="campaign-info"><div class="campaign-name">Create EDM Campaign</div><div class="campaign-meta">Compose and schedule an email</div></div>
+            </div>
+            <div class="campaign-item" onclick="go('manychat')">
+              <div class="campaign-icon" style="background:var(--blue-dim)">🤖</div>
+              <div class="campaign-info"><div class="campaign-name">Manage ManyChat Flows</div><div class="campaign-meta">Instagram DM automation</div></div>
+            </div>
+            <div class="campaign-item" onclick="go('add-subscriber')">
+              <div class="campaign-icon" style="background:var(--green-dim)">➕</div>
+              <div class="campaign-info"><div class="campaign-name">Add New Subscriber</div><div class="campaign-meta">Manually add someone to a service list</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ALL SUBSCRIBERS ═══ -->
+    <div class="page" id="page-all-subscribers">
+      <div class="sec-hd">
+        <div class="sec-title">All Subscribers</div>
+        <div class="sec-actions">
+          <button class="btn" onclick="exportCSV()">Export CSV</button>
+          <button class="btn btn-pink" onclick="go('add-subscriber')">+ Add Subscriber</button>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <input class="search-input" placeholder="Search name, email, phone..." oninput="filterSubscribers(this.value)">
+        <button class="filter-pill active" onclick="setFilter('all',this)">All</button>
+        <button class="filter-pill" onclick="setFilter('newsletter',this)">Newsletter</button>
+        <button class="filter-pill" onclick="setFilter('whatsapp',this)">WhatsApp</button>
+        <button class="filter-pill" onclick="setFilter('keynote',this)">Keynote</button>
+        <button class="filter-pill" onclick="setFilter('masterclass',this)">Masterclass</button>
+        <button class="filter-pill" onclick="setFilter('training',this)">Training</button>
+        <button class="filter-pill" onclick="setFilter('collab',this)">Collab</button>
+      </div>
+
+      <div class="bulk-bar" id="bulk-bar">
+        <span class="bulk-count" id="bulk-count">0 selected</span>
+        <button class="btn btn-wa" onclick="bulkWhatsApp()">💬 WhatsApp Selected</button>
+        <button class="btn" onclick="bulkEmail()">✉️ Email Selected</button>
+        <button class="btn" style="color:#f87171;border-color:rgba(248,113,113,0.3)" onclick="bulkDelete()">Delete</button>
+        <button class="btn" onclick="clearSelection()">Clear</button>
+      </div>
+
+      <div class="tbl">
+        <div class="tbl-hd" style="grid-template-columns:20px 1fr 130px 160px 110px 90px 80px">
+          <span></span><span>Subscriber</span><span>Phone</span><span>Services</span><span>Joined</span><span>Status</span><span></span>
+        </div>
+        <div id="all-rows"><div class="empty">No subscribers yet. <a href="javascript:void(0)" onclick="go('add-subscriber')" style="color:var(--pink)">Add one now.</a></div></div>
+      </div>
+      <div style="margin-top:10px;font-size:0.73rem;color:var(--text3)" id="sub-count-label"></div>
+    </div>
+
+    <!-- ═══ BY SERVICE ═══ -->
+    <div class="page" id="page-by-service">
+      <div class="sec-hd"><div class="sec-title">Subscribers by Service</div></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px" id="service-overview"></div>
+      <div id="service-detail-area"></div>
+    </div>
+
+    <!-- ═══ ADD SUBSCRIBER ═══ -->
+    <div class="page" id="page-add-subscriber">
+      <div class="sec-hd"><div class="sec-title">Add New Subscriber</div></div>
+      <div style="max-width:560px">
+        <div class="composer" style="margin-bottom:16px">
+          <div class="fg"><div class="fl">Full Name *</div><input class="fi" id="new-name" placeholder="e.g. Nour Al-Rashidi"></div>
+          <div class="frow">
+            <div class="fg"><div class="fl">Email Address</div><input class="fi" type="email" id="new-email" placeholder="nour@company.com"></div>
+            <div class="fg"><div class="fl">Phone / WhatsApp</div><input class="fi" id="new-phone" placeholder="+971 50 000 0000"></div>
+          </div>
+          <div class="fg"><div class="fl">Company / Organisation</div><input class="fi" id="new-company" placeholder="Company name"></div>
+          <div class="fg">
+            <div class="fl">Services (select all that apply)</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px" id="service-checkboxes">
+              <label style="display:flex;align-items:center;gap:8px;font-size:0.84rem;color:var(--text2);cursor:pointer"><input type="checkbox" value="newsletter" style="accent-color:var(--pink)"> Newsletter</label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:0.84rem;color:var(--text2);cursor:pointer"><input type="checkbox" value="whatsapp" style="accent-color:var(--pink)"> WhatsApp Community</label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:0.84rem;color:var(--text2);cursor:pointer"><input type="checkbox" value="keynote" style="accent-color:var(--pink)"> Keynote Enquiry</label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:0.84rem;color:var(--text2);cursor:pointer"><input type="checkbox" value="masterclass" style="accent-color:var(--pink)"> Masterclass Enquiry</label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:0.84rem;color:var(--text2);cursor:pointer"><input type="checkbox" value="training" style="accent-color:var(--pink)"> Corporate Training</label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:0.84rem;color:var(--text2);cursor:pointer"><input type="checkbox" value="collab" style="accent-color:var(--pink)"> Brand Collab</label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:0.84rem;color:var(--text2);cursor:pointer"><input type="checkbox" value="podcast" style="accent-color:var(--pink)"> Podcast Listener</label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:0.84rem;color:var(--text2);cursor:pointer"><input type="checkbox" value="playbook" style="accent-color:var(--pink)"> Free Playbook</label>
+            </div>
+          </div>
+          <div class="fg"><div class="fl">Notes</div><textarea class="fi" id="new-notes" placeholder="Any notes about this subscriber..." style="min-height:70px"></textarea></div>
+          <div style="display:flex;gap:10px;margin-top:6px">
+            <button class="btn btn-pink" onclick="saveSubscriber()">Save Subscriber</button>
+            <button class="btn" onclick="clearForm()">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ WHATSAPP ═══ -->
+    <div class="page" id="page-whatsapp">
+      <div class="sec-hd">
+        <div class="sec-title">WhatsApp Messaging</div>
+        <div class="sec-actions">
+          <span style="font-size:0.73rem;color:var(--text3)">Connect Meta Business API in Integrations to send live messages</span>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:16px">
+        <!-- Composer -->
+        <div>
+          <div class="composer">
+            <div class="composer-hd">
+              <div class="composer-label">Compose Message</div>
+              <div class="channel-badge" style="color:var(--wa)">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--wa)"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                WhatsApp
+              </div>
+            </div>
+            <div class="fg">
+              <div class="fl">Send To</div>
+              <select class="fi" id="wa-segment">
+                <option value="all">All subscribers</option>
+                <option value="newsletter">Newsletter subscribers</option>
+                <option value="whatsapp">WhatsApp Community</option>
+                <option value="keynote">Keynote enquiries</option>
+                <option value="masterclass">Masterclass enquiries</option>
+                <option value="training">Corporate training enquiries</option>
+                <option value="collab">Brand collab enquiries</option>
+                <option value="podcast">Podcast listeners</option>
+                <option value="playbook">Free playbook downloads</option>
+              </select>
+            </div>
+            <div class="fg">
+              <div class="fl">Message</div>
+              <textarea class="fi" id="wa-body" placeholder="Hi [Name], ..." oninput="updateWAPreview()" style="min-height:130px"></textarea>
+            </div>
+            <div class="fg">
+              <div class="fl">Live Preview</div>
+              <div class="wa-msg-preview" id="wa-preview">Your message will appear here...</div>
+            </div>
+            <div class="frow">
+              <div class="fg"><div class="fl">Schedule (optional)</div><input class="fi" type="datetime-local" id="wa-schedule"></div>
+              <div class="fg"><div class="fl">Template</div>
+                <select class="fi" id="wa-template" onchange="loadWATemplate()">
+                  <option value="">Load a template...</option>
+                  <option value="monday">Weekly Monday Message</option>
+                  <option value="podcast">New Podcast Episode</option>
+                  <option value="event">Event Announcement</option>
+                  <option value="followup">Enquiry Follow-Up</option>
+                  <option value="playbook">Playbook Reminder</option>
+                </select>
+              </div>
+            </div>
+            <div class="composer-foot">
+              <div class="char-count" id="wa-chars">0 characters</div>
+              <div style="display:flex;gap:8px">
+                <button class="btn" onclick="saveWADraft()">Save Draft</button>
+                <button class="btn btn-wa" onclick="sendWAMessage()">Send Message 💬</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- History + Templates -->
+        <div>
+          <div class="sec-hd" style="margin-bottom:12px"><div class="sec-title" style="font-size:0.92rem">Message History</div></div>
+          <div id="wa-history-list">
+            <div class="empty">No messages sent yet.</div>
+          </div>
+          <hr class="divider">
+          <div class="sec-hd" style="margin-bottom:12px"><div class="sec-title" style="font-size:0.92rem">Templates</div><button class="btn" onclick="openNewTemplate()">+ New</button></div>
+          <div id="wa-templates-list">
+            <div class="campaign-item">
+              <div class="campaign-icon" style="background:var(--wa-dim)">📅</div>
+              <div class="campaign-info"><div class="campaign-name">Weekly Monday Message</div><div class="campaign-meta">Community broadcast · Weekly inspiration</div></div>
+              <button class="btn row-btn wa" onclick="loadTemplate('monday')">Use</button>
+            </div>
+            <div class="campaign-item">
+              <div class="campaign-icon" style="background:var(--wa-dim)">🎙️</div>
+              <div class="campaign-info"><div class="campaign-name">New Podcast Episode</div><div class="campaign-meta">All subscribers · Episode drop announcement</div></div>
+              <button class="btn row-btn wa" onclick="loadTemplate('podcast')">Use</button>
+            </div>
+            <div class="campaign-item">
+              <div class="campaign-icon" style="background:var(--wa-dim)">🎤</div>
+              <div class="campaign-info"><div class="campaign-name">Event Announcement</div><div class="campaign-meta">Keynote + masterclass enquiries</div></div>
+              <button class="btn row-btn wa" onclick="loadTemplate('event')">Use</button>
+            </div>
+            <div class="campaign-item">
+              <div class="campaign-icon" style="background:var(--wa-dim)">🔁</div>
+              <div class="campaign-info"><div class="campaign-name">Enquiry Follow-Up</div><div class="campaign-meta">Sales follow-up for service enquiries</div></div>
+              <button class="btn row-btn wa" onclick="loadTemplate('followup')">Use</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ EDM ═══ -->
+    <div class="page" id="page-edm">
+      <div class="sec-hd">
+        <div class="sec-title">EDM Email Campaigns</div>
+        <button class="btn btn-pink" onclick="openNewCampaign()">+ New Campaign</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:16px">
+        <div>
+          <div class="composer">
+            <div class="composer-hd">
+              <div class="composer-label">Compose Campaign</div>
+              <div class="channel-badge" style="color:var(--pink)">✉️ Email via Mailchimp / ActiveCampaign</div>
+            </div>
+            <div class="fg"><div class="fl">Campaign Name</div><input class="fi" id="edm-name" placeholder="e.g. April AWAKE — Phone Selling Tips"></div>
+            <div class="frow">
+              <div class="fg"><div class="fl">Send To</div>
+                <select class="fi" id="edm-segment">
+                  <option value="all">All subscribers</option>
+                  <option value="newsletter">Newsletter subscribers</option>
+                  <option value="whatsapp">WhatsApp Community</option>
+                  <option value="keynote">Keynote enquiries</option>
+                  <option value="masterclass">Masterclass enquiries</option>
+                  <option value="training">Corporate training</option>
+                  <option value="playbook">Free playbook downloads</option>
+                </select>
+              </div>
+              <div class="fg"><div class="fl">From Name</div><input class="fi" id="edm-from" value="Cecilia Reinaldo — AWAKE Method"></div>
+            </div>
+            <div class="frow">
+              <div class="fg"><div class="fl">Subject Line</div><input class="fi" id="edm-subject" placeholder="The 1 phone habit that changes everything"></div>
+              <div class="fg"><div class="fl">Preview Text</div><input class="fi" id="edm-preview" placeholder="Most people don't do this — and it shows."></div>
+            </div>
+            <div class="fg"><div class="fl">Email Body</div><textarea class="fi" id="edm-body" style="min-height:180px" oninput="updateEDMCount()" placeholder="Hey [First Name],&#10;&#10;Before your next phone call, try this...&#10;&#10;— Cecilia"></textarea></div>
+            <div class="frow">
+              <div class="fg"><div class="fl">Schedule Send</div><input class="fi" type="datetime-local" id="edm-schedule"></div>
+              <div class="fg"><div class="fl">Reply-To</div><input class="fi" id="edm-reply" placeholder="cecilia@awake-method.com"></div>
+            </div>
+            <div class="composer-foot">
+              <div class="char-count" id="edm-chars">0 characters</div>
+              <div style="display:flex;gap:8px">
+                <button class="btn" onclick="saveEDMDraft()">Save Draft</button>
+                <button class="btn" onclick="previewEDM()">Preview</button>
+                <button class="btn btn-pink" onclick="scheduleEDM()">Schedule Campaign →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="sec-hd" style="margin-bottom:12px"><div class="sec-title" style="font-size:0.92rem">Automated Sequences</div></div>
+          <div class="campaign-item"><div class="campaign-icon" style="background:var(--green-dim)">📥</div><div class="campaign-info"><div class="campaign-name">Welcome — Free Playbook</div><div class="campaign-meta">5 emails · Day 0, 1, 3, 7, 14 · On registration</div></div><div style="text-align:right"><div class="c-metric-num" id="seq-welcome">0</div><div class="c-metric-label">enrolled</div></div><span class="badge bg">Live</span></div>
+          <div class="campaign-item"><div class="campaign-icon" style="background:var(--pink-dim)">🎙️</div><div class="campaign-info"><div class="campaign-name">Podcast Listener Nurture</div><div class="campaign-meta">3 emails · Day 0, 7, 21 · On podcast signup</div></div><div style="text-align:right"><div class="c-metric-num" id="seq-podcast">0</div><div class="c-metric-label">enrolled</div></div><span class="badge bb">Draft</span></div>
+          <div class="campaign-item"><div class="campaign-icon" style="background:var(--amber-dim)">🔁</div><div class="campaign-info"><div class="campaign-name">Keynote Follow-Up</div><div class="campaign-meta">3 emails · Day 0, 3, 10 · After enquiry</div></div><div style="text-align:right"><div class="c-metric-num" id="seq-keynote">0</div><div class="c-metric-label">enrolled</div></div><span class="badge bg">Live</span></div>
+          <hr class="divider">
+          <div class="sec-hd" style="margin-bottom:12px"><div class="sec-title" style="font-size:0.92rem">Sent Campaigns</div></div>
+          <div id="sent-campaigns"><div class="empty">No campaigns sent yet.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ MANYCHAT ═══ -->
+    <div class="page" id="page-manychat">
+      <div class="sec-hd">
+        <div class="sec-title">ManyChat Automation Flows</div>
+        <button class="btn btn-pink" onclick="toast('Open ManyChat.com to build new flows, then link them here.','error')">+ New Flow</button>
+      </div>
+      <p style="font-size:0.82rem;color:var(--text3);margin-bottom:20px">ManyChat handles Instagram DM automation and Facebook Messenger flows. Connect your account in Integrations, then manage and monitor flows here.</p>
+
+      <div class="flow-card">
+        <div class="flow-hd">
+          <div class="flow-icon">📥</div>
+          <div><div class="flow-name">Free Playbook DM Flow</div><div class="flow-sub">Trigger: Instagram comment "AWAKE" or DM "free guide"</div></div>
+          <div style="margin-left:auto;display:flex;gap:8px;align-items:center"><span class="badge bg">Live</span><button class="btn" onclick="toast('Opens in ManyChat — connect account first in Integrations.')">Edit in ManyChat</button></div>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step"><div class="step-line"><div class="step-dot"></div><div class="step-conn"></div></div><div><div class="step-trigger">Trigger</div><div class="step-text">User comments "AWAKE" on any post, or sends "free guide" in a DM</div></div></div>
+          <div class="flow-step"><div class="step-line"><div class="step-dot"></div><div class="step-conn"></div></div><div><div class="step-trigger">Step 1 — Instant DM</div><div class="step-text">Send: "Hey [First Name] 👋 Here's your free AWAKE Method guide → [link]. Save it. — Cecilia 🌟"</div></div></div>
+          <div class="flow-step"><div class="step-line"><div class="step-dot"></div><div class="step-conn"></div></div><div><div class="step-trigger">Step 2 — Collect Email</div><div class="step-text">Ask: "What's the best email to send you bonus resources from the AWAKE community?" → Save to subscriber list</div><div class="step-delay">⏱ Immediately after guide link</div></div></div>
+          <div class="flow-step"><div class="step-line"><div class="step-dot"></div><div class="step-conn"></div></div><div><div class="step-trigger">Step 3 — Day 3 Follow-Up</div><div class="step-text">"Hey [First Name] — which of the 10 CX foundations hit home for you? I read every reply 💛"</div><div class="step-delay">⏱ 3 days after download</div></div></div>
+          <div class="flow-step"><div class="step-line"><div class="step-dot dim"></div></div><div><div class="step-trigger">Step 4 — Day 7 Invite</div><div class="step-text">"Ready to go deeper? Join the AWAKE WhatsApp Community → [link]" + Button: Join / Not yet</div><div class="step-delay">⏱ 7 days after download</div></div></div>
+        </div>
+        <div class="flow-metrics">
+          <div><div class="fm-num" id="mc-triggered">0</div><div class="fm-label">Triggered</div></div>
+          <div><div class="fm-num">—</div><div class="fm-label">Email Collected</div></div>
+          <div><div class="fm-num">—</div><div class="fm-label">Day 3 Reply Rate</div></div>
+          <div><div class="fm-num">—</div><div class="fm-label">WA Join Rate</div></div>
+        </div>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-hd">
+          <div class="flow-icon">🎙️</div>
+          <div><div class="flow-name">Podcast Episode Drop</div><div class="flow-sub">Trigger: DM "podcast" / "majlis" / "episode"</div></div>
+          <div style="margin-left:auto;display:flex;gap:8px;align-items:center"><span class="badge bg">Live</span><button class="btn" onclick="toast('Opens in ManyChat — connect account first in Integrations.')">Edit in ManyChat</button></div>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step"><div class="step-line"><div class="step-dot"></div><div class="step-conn"></div></div><div><div class="step-trigger">Trigger</div><div class="step-text">User sends "podcast", "majlis", or "episode" in DM</div></div></div>
+          <div class="flow-step"><div class="step-line"><div class="step-dot"></div><div class="step-conn"></div></div><div><div class="step-trigger">Step 1 — Episode Link</div><div class="step-text">Send: "Here's this week's episode of The Real Estate Majlis 🎙️ → [Spotify] [Apple]. A review means the world. — Cecilia"</div></div></div>
+          <div class="flow-step"><div class="step-line"><div class="step-dot dim"></div></div><div><div class="step-trigger">Step 2 — Free Guide Offer</div><div class="step-text">"P.S. — If the episode resonated, I have a free AWAKE Method guide. Want me to send it over?" → Yes / No</div><div class="step-delay">⏱ 10 minutes after episode link</div></div></div>
+        </div>
+        <div class="flow-metrics">
+          <div><div class="fm-num">—</div><div class="fm-label">Triggered</div></div>
+          <div><div class="fm-num">—</div><div class="fm-label">Link Clicked</div></div>
+          <div><div class="fm-num">—</div><div class="fm-label">Guide Requested</div></div>
+        </div>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-hd">
+          <div class="flow-icon">🎤</div>
+          <div><div class="flow-name">Speaking Enquiry</div><div class="flow-sub">Trigger: DM "speaking" / "keynote" / "event" / "masterclass"</div></div>
+          <div style="margin-left:auto;display:flex;gap:8px;align-items:center"><span class="badge ba">Draft</span><button class="btn" onclick="toast('Opens in ManyChat — connect account first in Integrations.')">Edit in ManyChat</button></div>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step"><div class="step-line"><div class="step-dot"></div><div class="step-conn"></div></div><div><div class="step-trigger">Trigger</div><div class="step-text">User sends: speaking, keynote, event, masterclass, hire, book you</div></div></div>
+          <div class="flow-step"><div class="step-line"><div class="step-dot"></div><div class="step-conn"></div></div><div><div class="step-trigger">Step 1 — Warm Response</div><div class="step-text">"Hi [Name] 👋 Thank you so much — I'd love to hear more about your event. Can you tell me about the audience and date?"</div></div></div>
+          <div class="flow-step"><div class="step-line"><div class="step-dot dim"></div></div><div><div class="step-trigger">Step 2 — Redirect</div><div class="step-text">"Please fill in our short enquiry form and the team will get back within 48 hours → [link to website contact form]"</div></div></div>
+        </div>
+        <div class="flow-metrics">
+          <div><div class="fm-num">—</div><div class="fm-label">Not yet live</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ANALYTICS ═══ -->
+    <div class="page" id="page-analytics">
+      <div class="sec-hd"><div class="sec-title">Analytics</div><button class="btn" onclick="toast('Export feature — connect your EDM platform in Integrations.')">Export Report</button></div>
+      <div class="stats" style="grid-template-columns:repeat(4,1fr)">
+        <div class="stat-card"><div class="stat-label">Total Subscribers</div><div class="stat-val pink" id="an-total">0</div></div>
+        <div class="stat-card"><div class="stat-label">This Month</div><div class="stat-val" id="an-month">0</div><div class="stat-delta">New subscribers</div></div>
+        <div class="stat-card"><div class="stat-label">WA Community</div><div class="stat-val" id="an-wa">0</div></div>
+        <div class="stat-card"><div class="stat-label">Open Enquiries</div><div class="stat-val" id="an-enquiries">0</div></div>
+      </div>
+      <div class="analytics-grid">
+        <div class="analytics-card">
+          <div class="analytics-title">Subscribers by Service</div>
+          <div id="analytics-bars"><div class="empty">No data yet</div></div>
+        </div>
+        <div class="analytics-card">
+          <div class="analytics-title">Growth This Week</div>
+          <div id="analytics-growth"><div class="empty">No data yet</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ INTEGRATIONS ═══ -->
+    <div class="page" id="page-integrations">
+      <div class="sec-hd"><div class="sec-title">Integrations</div></div>
+      <p style="font-size:0.82rem;color:var(--text3);margin-bottom:20px">Connect your tools to make the hub fully functional. Follow each setup guide in order.</p>
+
+      <div class="int-grid">
+        <div class="int-card">
+          <div class="int-icon" style="background:var(--pink-dim)">🤖</div>
+          <div class="int-name">ManyChat</div>
+          <div class="int-desc">Instagram DM automation and keyword flows. Handles free playbook delivery, podcast drops, and speaking enquiry routing.</div>
+          <div class="int-setup"><strong style="color:var(--text2)">Setup:</strong> Create account at manychat.com → Connect @ceciliadxb Instagram → Build flows → Settings → API → Copy key → Paste below<br><br><input class="fi" placeholder="ManyChat API key..." style="margin-top:6px"></div>
+          <div class="int-foot"><span class="int-badge pending">Setup Required</span><button class="int-btn" onclick="toast('Paste your ManyChat API key above to connect.')">Connect →</button></div>
+        </div>
+        <div class="int-card">
+          <div class="int-icon" style="background:var(--amber-dim)">🐒</div>
+          <div class="int-name">Mailchimp</div>
+          <div class="int-desc">EDM platform for newsletters, welcome sequences, and automated nurture campaigns. Free up to 500 contacts.</div>
+          <div class="int-setup"><strong style="color:var(--text2)">Setup:</strong> Create account at mailchimp.com → Create Audience "AWAKE Subscribers" → Account → Extras → API Keys → Create → paste below<br><br><input class="fi" placeholder="Mailchimp API key..." style="margin-top:6px"></div>
+          <div class="int-foot"><span class="int-badge pending">Setup Required</span><button class="int-btn" onclick="toast('Paste your Mailchimp API key above to connect.')">Connect →</button></div>
+        </div>
+        <div class="int-card">
+          <div class="int-icon" style="background:var(--wa-dim)">📱</div>
+          <div class="int-name">WhatsApp Business API</div>
+          <div class="int-desc">Required to send WhatsApp broadcasts programmatically at scale. Connected via Meta Business Suite.</div>
+          <div class="int-setup"><strong style="color:var(--text2)">Setup:</strong> business.facebook.com → WhatsApp → Get started → Verify number → Apply for API access (2–5 business days) → Paste token below<br><br><input class="fi" placeholder="Meta WhatsApp API token..." style="margin-top:6px"></div>
+          <div class="int-foot"><span class="int-badge pending">Setup Required</span><button class="int-btn" onclick="toast('Apply for WhatsApp Business API at business.facebook.com first.')">Connect →</button></div>
+        </div>
+        <div class="int-card">
+          <div class="int-icon" style="background:var(--blue-dim)">⚡</div>
+          <div class="int-name">ActiveCampaign</div>
+          <div class="int-desc">Advanced EDM alternative with better tagging, segmentation, and CRM. Use instead of or alongside Mailchimp.</div>
+          <div class="int-setup"><strong style="color:var(--text2)">Setup:</strong> Create account at activecampaign.com → Settings → Developer → API Access → Copy URL + Key → paste below<br><br><input class="fi" placeholder="ActiveCampaign API key..." style="margin-top:6px"></div>
+          <div class="int-foot"><span class="int-badge optional">Optional Alt.</span><button class="int-btn" onclick="toast('Optional alternative to Mailchimp.')">Connect →</button></div>
+        </div>
+        <div class="int-card">
+          <div class="int-icon" style="background:rgba(99,102,241,0.15)">💳</div>
+          <div class="int-name">Stripe Payments</div>
+          <div class="int-desc">Handles playbook and consultation payments. Auto-tags purchasers in the subscriber list on payment confirmation.</div>
+          <div class="int-setup"><strong style="color:var(--text2)">Setup:</strong> dashboard.stripe.com → Developers → API Keys → Restrict key → Paste below. Configure webhook to fire on payment success.<br><br><input class="fi" placeholder="Stripe secret key..." style="margin-top:6px"></div>
+          <div class="int-foot"><span class="int-badge pending">Setup Required</span><button class="int-btn" onclick="toast('Paste your Stripe secret key above to connect.')">Connect →</button></div>
+        </div>
+        <div class="int-card">
+          <div class="int-icon" style="background:rgba(255,79,0,0.1)">🔗</div>
+          <div class="int-name">Zapier</div>
+          <div class="int-desc">Connects all your tools. Key Zaps: Website form → Mailchimp + ManyChat. Stripe payment → subscriber tag → VIP sequence.</div>
+          <div class="int-setup"><strong style="color:var(--text2)">Key Zaps to build:</strong><br>1. New website form → Add to Mailchimp + tag service<br>2. Stripe payment → Tag subscriber as buyer<br>3. New ManyChat subscriber → Add to this hub<br><br><input class="fi" placeholder="Zapier webhook URL..." style="margin-top:6px"></div>
+          <div class="int-foot"><span class="int-badge pending">Setup Required</span><button class="int-btn" onclick="toast('Create your Zaps at zapier.com using the guides above.')">Set Up →</button></div>
+        </div>
+      </div>
+
+      <!-- Tech Stack Map -->
+      <div class="flow-card" style="margin-top:4px">
+        <div class="flow-hd"><div class="flow-icon">🗺️</div><div><div class="flow-name">How Everything Connects</div><div class="flow-sub">The AWAKE tech stack — follow this order</div></div></div>
+        <div class="flow-steps">
+          <div class="flow-step"><div class="step-line"><div class="step-dot"></div><div class="step-conn"></div></div><div><div class="step-trigger">Subscriber enters</div><div class="step-text">Via website form, ManyChat Instagram DM, podcast link, or event QR → All routes add them here with the correct service tag</div></div></div>
+          <div class="flow-step"><div class="step-line"><div class="step-dot"></div><div class="step-conn"></div></div><div><div class="step-trigger">Instant delivery</div><div class="step-text">Mailchimp sends the free playbook PDF automatically (Day 0). ManyChat sends a warm DM if they came via Instagram.</div></div></div>
+          <div class="flow-step"><div class="step-line"><div class="step-dot"></div><div class="step-conn"></div></div><div><div class="step-trigger">Nurture sequence</div><div class="step-text">Mailchimp sends Day 1, 3, 7, 14 emails automatically. ManyChat sends Day 3 and Day 7 DM follow-ups.</div></div></div>
+          <div class="flow-step"><div class="step-line"><div class="step-dot"></div><div class="step-conn"></div></div><div><div class="step-trigger">Ongoing engagement</div><div class="step-text">Regular EDM campaigns, WhatsApp community broadcasts from this hub, and podcast episode drops keep the community engaged.</div></div></div>
+          <div class="flow-step"><div class="step-line"><div class="step-dot dim"></div></div><div><div class="step-trigger">Service enquiries</div><div class="step-text">Keynote, masterclass, training, or collab enquiries are tagged automatically → appear in By Service view → trigger follow-up sequence</div></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ADD SUBSCRIBER MODAL (for inline editing) -->
+<div class="modal-overlay" id="edit-modal">
+  <div class="modal">
+    <div class="modal-hd">
+      <div class="modal-title">Edit Subscriber</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="fg"><div class="fl">Full Name</div><input class="fi" id="edit-name"></div>
+    <div class="frow" style="margin-top:10px">
+      <div class="fg"><div class="fl">Email</div><input class="fi" id="edit-email" type="email"></div>
+      <div class="fg"><div class="fl">Phone</div><input class="fi" id="edit-phone"></div>
+    </div>
+    <div class="fg" style="margin-top:10px"><div class="fl">Company</div><input class="fi" id="edit-company"></div>
+    <div class="fg" style="margin-top:10px">
+      <div class="fl">Services</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px" id="edit-services"></div>
+    </div>
+    <div class="fg" style="margin-top:10px"><div class="fl">Notes</div><textarea class="fi" id="edit-notes" style="min-height:60px"></textarea></div>
+    <div style="display:flex;gap:10px;margin-top:16px">
+      <button class="btn btn-pink" onclick="updateSubscriber()">Save Changes</button>
+      <button class="btn" style="color:#f87171" onclick="deleteSubscriber()">Delete</button>
+      <button class="btn" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════
+// STATE — uses sessionStorage (no external deps)
+// ══════════════════════════════════════════
+const SERVICES = ['newsletter','whatsapp','keynote','masterclass','training','collab','podcast','playbook'];
+const SERVICE_LABELS = {
+  newsletter:'Newsletter', whatsapp:'WhatsApp Community', keynote:'Keynote Enquiry',
+  masterclass:'Masterclass Enquiry', training:'Corporate Training', collab:'Brand Collab',
+  podcast:'Podcast Listener', playbook:'Free Playbook'
+};
+const SERVICE_COLORS = {
+  newsletter:'bp', whatsapp:'bg', keynote:'ba', masterclass:'bb',
+  training:'bgr', collab:'bp', podcast:'ba', playbook:'bg'
+};
+
+let subscribers = JSON.parse(sessionStorage.getItem('awake_subs') || '[]');
+let waHistory   = JSON.parse(sessionStorage.getItem('awake_wa') || '[]');
+let campaigns   = JSON.parse(sessionStorage.getItem('awake_campaigns') || '[]');
+let currentFilter = 'all';
+let searchQuery = '';
+let selected = new Set();
+let editingId = null;
+
+function save(){ sessionStorage.setItem('awake_subs', JSON.stringify(subscribers)); }
+function saveWA(){ sessionStorage.setItem('awake_wa', JSON.stringify(waHistory)); }
+function saveCampaigns(){ sessionStorage.setItem('awake_campaigns', JSON.stringify(campaigns)); }
+
+// Seed demo data on first load
+if(!subscribers.length){
+  const demo = [
+    {id:'s1',name:'Nour Al-Rashidi',email:'nour@properties.ae',phone:'+971 50 111 2233',company:'Dubai Realty Group',services:['newsletter','keynote','whatsapp'],notes:'Met at PropTech 2025',joined:new Date(Date.now()-7*86400000).toISOString()},
+    {id:'s2',name:'Sara Mahmoud',email:'sara@realestate.com',phone:'+971 55 222 3344',company:'Sara Properties',services:['newsletter','playbook'],notes:'',joined:new Date(Date.now()-5*86400000).toISOString()},
+    {id:'s3',name:'Khalid Al-Amin',email:'k.alamin@hotel.com',phone:'+971 50 333 4455',company:'Jumeirah Hotels',services:['masterclass','whatsapp','playbook'],notes:'Hospitality sector',joined:new Date(Date.now()-3*86400000).toISOString()},
+    {id:'s4',name:'Lina Boutros',email:'linab@cx.co',phone:'+971 52 444 5566',company:'CX Consulting Co',services:['newsletter','training'],notes:'Referred by Nour',joined:new Date(Date.now()-2*86400000).toISOString()},
+    {id:'s5',name:'Ahmed Mansoor',email:'ahmed@agencyxyz.com',phone:'+971 56 555 6677',company:'Agency XYZ',services:['collab','newsletter'],notes:'Brand collab interest',joined:new Date(Date.now()-86400000).toISOString()},
+  ];
+  subscribers = demo; save();
+}
+
+// ══════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════
+const PAGE_TITLES = {
+  'dashboard':'Dashboard','all-subscribers':'All Subscribers','by-service':'By Service',
+  'add-subscriber':'Add Subscriber','whatsapp':'WhatsApp','edm':'EDM Campaigns',
+  'manychat':'ManyChat Flows','analytics':'Analytics','integrations':'Integrations'
+};
+
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const pg = document.getElementById('page-'+id);
+  if(pg) pg.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>{
+    if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes("'"+id+"'")) n.classList.add('active');
+  });
+  document.getElementById('page-title').textContent = PAGE_TITLES[id]||id;
+  if(id==='dashboard') renderDashboard();
+  if(id==='all-subscribers') renderAllSubscribers();
+  if(id==='by-service') renderByService();
+  if(id==='analytics') renderAnalytics();
+  window.scrollTo(0,0);
+}
+
+// ══════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════
+function initials(name){ return name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2); }
+function formatDate(iso){ return new Date(iso).toLocaleDateString('en-GB',{day:'numeric',month:'short'}); }
+function uid(){ return 's'+Date.now()+Math.random().toString(36).slice(2,6); }
+
+function toast(msg, type='success'){
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast '+(type||'');
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),3000);
+}
+
+// ══════════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════════
+function renderDashboard(){
+  const counts = {};
+  SERVICES.forEach(s=>counts[s]=0);
+  subscribers.forEach(sub=>sub.services.forEach(s=>{if(counts[s]!==undefined)counts[s]++;}));
+
+  document.getElementById('stat-total').textContent = subscribers.length;
+  document.getElementById('stat-newsletter').textContent = counts.newsletter;
+  document.getElementById('stat-wa').textContent = counts.whatsapp;
+  document.getElementById('stat-keynote').textContent = counts.keynote;
+  document.getElementById('stat-masterclass').textContent = counts.masterclass;
+
+  const recent = [...subscribers].sort((a,b)=>new Date(b.joined)-new Date(a.joined)).slice(0,6);
+  const el = document.getElementById('recent-rows');
+  if(!recent.length){ el.innerHTML='<div class="empty">No subscribers yet.</div>'; return; }
+  el.innerHTML = recent.map(s=>`
+    <div class="tbl-row" style="grid-template-columns:1fr 110px 100px" onclick="openEdit('${s.id}')">
+      <div class="cell-name">
+        <div class="avatar">${initials(s.name)}</div>
+        <div><div class="cell-main">${s.name}</div><div class="cell-sub">${s.email||s.phone||''}</div></div>
+      </div>
+      <div class="tag-list">${s.services.slice(0,2).map(sv=>`<span class="badge ${SERVICE_COLORS[sv]||'bgr'}">${SERVICE_LABELS[sv]||sv}</span>`).join('')}</div>
+      <div class="cell-mono">${formatDate(s.joined)}</div>
+    </div>`).join('');
+
+  // Update sequence counts
+  document.getElementById('seq-welcome').textContent = counts.newsletter;
+  document.getElementById('seq-podcast').textContent = counts.podcast;
+  document.getElementById('seq-keynote').textContent = counts.keynote;
+}
+
+// ══════════════════════════════════════════
+// ALL SUBSCRIBERS
+// ══════════════════════════════════════════
+function filtered(){
+  return subscribers.filter(s=>{
+    const matchService = currentFilter==='all' || s.services.includes(currentFilter);
+    const q = searchQuery.toLowerCase();
+    const matchSearch = !q || s.name.toLowerCase().includes(q)||
+      (s.email||'').toLowerCase().includes(q)||(s.phone||'').includes(q)||(s.company||'').toLowerCase().includes(q);
+    return matchService && matchSearch;
+  }).sort((a,b)=>new Date(b.joined)-new Date(a.joined));
+}
+
+function renderAllSubscribers(){
+  const list = filtered();
+  const el = document.getElementById('all-rows');
+  document.getElementById('sub-count-label').textContent = `Showing ${list.length} of ${subscribers.length} subscribers`;
+  if(!list.length){ el.innerHTML='<div class="empty">No subscribers match this filter.</div>'; return; }
+  el.innerHTML = list.map(s=>`
+    <div class="tbl-row" style="grid-template-columns:20px 1fr 130px 160px 110px 90px 80px" id="row-${s.id}">
+      <input type="checkbox" class="chk" ${selected.has(s.id)?'checked':''} onclick="toggleSelect('${s.id}',this)" style="accent-color:var(--pink)">
+      <div class="cell-name">
+        <div class="avatar">${initials(s.name)}</div>
+        <div><div class="cell-main">${s.name}</div><div class="cell-sub">${s.email||''} ${s.company?'· '+s.company:''}</div></div>
+      </div>
+      <div class="cell-text">${s.phone||'<span style="color:var(--text3)">No phone</span>'}</div>
+      <div class="tag-list">${s.services.map(sv=>`<span class="badge ${SERVICE_COLORS[sv]||'bgr'}">${SERVICE_LABELS[sv]||sv}</span>`).join('')}</div>
+      <div class="cell-mono">${formatDate(s.joined)}</div>
+      <div><span class="badge bg">Active</span></div>
+      <div class="row-actions">
+        <button class="row-btn" onclick="openEdit('${s.id}')">Edit</button>
+        <button class="row-btn wa" onclick="quickWA('${s.id}')">WA</button>
+      </div>
+    </div>`).join('');
+}
+
+function setFilter(f, el){
+  currentFilter = f;
+  document.querySelectorAll('.filter-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  renderAllSubscribers();
+}
+
+function filterSubscribers(q){ searchQuery=q; renderAllSubscribers(); }
+
+function toggleSelect(id, el){
+  if(el.checked) selected.add(id); else selected.delete(id);
+  updateBulkBar();
+}
+function updateBulkBar(){
+  const bar = document.getElementById('bulk-bar');
+  bar.classList.toggle('visible', selected.size>0);
+  document.getElementById('bulk-count').textContent = selected.size+' selected';
+}
+function clearSelection(){ selected.clear(); updateBulkBar(); renderAllSubscribers(); }
+
+function bulkWhatsApp(){
+  const names = [...selected].map(id=>subscribers.find(s=>s.id===id)?.name).filter(Boolean);
+  toast(`WhatsApp to ${selected.size} subscribers: ${names.slice(0,3).join(', ')}${names.length>3?'...':''}. Connect Meta API in Integrations to send.`,'');
+}
+function bulkEmail(){
+  toast(`EDM to ${selected.size} subscribers — go to EDM Campaigns and select the same segment to compose your email.`,'');
+}
+function bulkDelete(){
+  if(!confirm(`Delete ${selected.size} subscriber(s)? This cannot be undone.`)) return;
+  subscribers = subscribers.filter(s=>!selected.has(s.id));
+  selected.clear(); save(); updateBulkBar(); renderAllSubscribers();
+  toast(`Deleted ${selected.size} subscribers.`,'');
+}
+
+function exportCSV(){
+  const rows = [['Name','Email','Phone','Company','Services','Joined']];
+  filtered().forEach(s=>rows.push([s.name,s.email||'',s.phone||'',s.company||'',s.services.join('|'),formatDate(s.joined)]));
+  const csv = rows.map(r=>r.map(c=>'"'+c+'"').join(',')).join('\n');
+  const a = document.createElement('a'); a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='awake-subscribers.csv'; a.click();
+  toast('Exported to CSV ✓');
+}
+
+function quickWA(id){
+  const s = subscribers.find(x=>x.id===id);
+  if(!s) return;
+  go('whatsapp');
+  setTimeout(()=>{
+    document.getElementById('wa-body').value = `Hi ${s.name.split(' ')[0]} 👋\n\n`;
+    updateWAPreview();
+  },100);
+}
+
+// ══════════════════════════════════════════
+// BY SERVICE
+// ══════════════════════════════════════════
+function renderByService(){
+  const counts = {};
+  SERVICES.forEach(s=>counts[s]=[]);
+  subscribers.forEach(sub=>sub.services.forEach(sv=>{ if(counts[sv]) counts[sv].push(sub); }));
+
+  const overview = document.getElementById('service-overview');
+  overview.innerHTML = SERVICES.map(sv=>`
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px;cursor:pointer;transition:border-color 0.15s" onclick="showServiceDetail('${sv}')" onmouseover="this.style.borderColor='rgba(232,24,92,0.4)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3);margin-bottom:8px">${SERVICE_LABELS[sv]}</div>
+      <div style="font-family:var(--serif);font-size:2rem;font-weight:900;color:var(--pink);margin-bottom:4px">${counts[sv].length}</div>
+      <div style="font-size:0.72rem;color:var(--text3)">subscribers</div>
+    </div>`).join('');
+
+  // Auto-show first with subscribers
+  const first = SERVICES.find(sv=>counts[sv].length>0);
+  if(first) showServiceDetail(first);
+}
+
+function showServiceDetail(sv){
+  const subs = subscribers.filter(s=>s.services.includes(sv));
+  const area = document.getElementById('service-detail-area');
+  area.innerHTML = `
+    <div class="sec-hd">
+      <div class="sec-title">${SERVICE_LABELS[sv]} — ${subs.length} subscribers</div>
+      <div class="sec-actions">
+        <button class="btn btn-wa" onclick="messageService('${sv}')">💬 Message This Group</button>
+        <button class="btn btn-pink" onclick="emailService('${sv}')">✉️ Email This Group</button>
+      </div>
+    </div>
+    <div class="tbl">
+      <div class="tbl-hd" style="grid-template-columns:1fr 130px 160px 100px 70px">
+        <span>Subscriber</span><span>Phone</span><span>Other Services</span><span>Joined</span><span></span>
+      </div>
+      ${subs.length ? subs.sort((a,b)=>new Date(b.joined)-new Date(a.joined)).map(s=>`
+        <div class="tbl-row" style="grid-template-columns:1fr 130px 160px 100px 70px">
+          <div class="cell-name"><div class="avatar">${initials(s.name)}</div>
+            <div><div class="cell-main">${s.name}</div><div class="cell-sub">${s.email||''}</div></div>
+          </div>
+          <div class="cell-text">${s.phone||'—'}</div>
+          <div class="tag-list">${s.services.filter(x=>x!==sv).map(x=>`<span class="badge ${SERVICE_COLORS[x]||'bgr'}">${SERVICE_LABELS[x]||x}</span>`).join('')}</div>
+          <div class="cell-mono">${formatDate(s.joined)}</div>
+          <div class="row-actions" style="opacity:1"><button class="row-btn" onclick="openEdit('${s.id}')">Edit</button></div>
+        </div>`).join('') : '<div class="empty">No subscribers in this service yet.</div>'}
+    </div>`;
+}
+
+function messageService(sv){
+  go('whatsapp');
+  setTimeout(()=>{ document.getElementById('wa-segment').value=sv; },100);
+  toast(`WhatsApp composer opened for: ${SERVICE_LABELS[sv]}`);
+}
+function emailService(sv){
+  go('edm');
+  setTimeout(()=>{ document.getElementById('edm-segment').value=sv; },100);
+  toast(`EDM composer opened for: ${SERVICE_LABELS[sv]}`);
+}
+
+// ══════════════════════════════════════════
+// ADD SUBSCRIBER
+// ══════════════════════════════════════════
+function saveSubscriber(){
+  const name = document.getElementById('new-name').value.trim();
+  if(!name){ toast('Name is required','error'); return; }
+  const services = [...document.querySelectorAll('#service-checkboxes input:checked')].map(i=>i.value);
+  if(!services.length){ toast('Select at least one service','error'); return; }
+  const sub = {
+    id: uid(), name,
+    email: document.getElementById('new-email').value.trim(),
+    phone: document.getElementById('new-phone').value.trim(),
+    company: document.getElementById('new-company').value.trim(),
+    notes: document.getElementById('new-notes').value.trim(),
+    services, joined: new Date().toISOString()
+  };
+  subscribers.unshift(sub); save();
+  toast(`${name} added successfully ✓`);
+  clearForm();
+  setTimeout(()=>go('all-subscribers'),600);
+}
+
+function clearForm(){
+  ['new-name','new-email','new-phone','new-company','new-notes'].forEach(id=>document.getElementById(id).value='');
+  document.querySelectorAll('#service-checkboxes input').forEach(i=>i.checked=false);
+}
+
+// ══════════════════════════════════════════
+// EDIT MODAL
+// ══════════════════════════════════════════
+function openEdit(id){
+  const s = subscribers.find(x=>x.id===id); if(!s) return;
+  editingId = id;
+  document.getElementById('edit-name').value = s.name;
+  document.getElementById('edit-email').value = s.email||'';
+  document.getElementById('edit-phone').value = s.phone||'';
+  document.getElementById('edit-company').value = s.company||'';
+  document.getElementById('edit-notes').value = s.notes||'';
+  document.getElementById('edit-services').innerHTML = SERVICES.map(sv=>`
+    <label style="display:flex;align-items:center;gap:8px;font-size:0.83rem;color:var(--text2);cursor:pointer">
+      <input type="checkbox" value="${sv}" ${s.services.includes(sv)?'checked':''} style="accent-color:var(--pink)">
+      ${SERVICE_LABELS[sv]}
+    </label>`).join('');
+  document.getElementById('edit-modal').classList.add('open');
+}
+function closeModal(){ document.getElementById('edit-modal').classList.remove('open'); editingId=null; }
+function updateSubscriber(){
+  if(!editingId) return;
+  const idx = subscribers.findIndex(s=>s.id===editingId); if(idx<0) return;
+  const services = [...document.querySelectorAll('#edit-services input:checked')].map(i=>i.value);
+  subscribers[idx] = {...subscribers[idx],
+    name: document.getElementById('edit-name').value.trim(),
+    email: document.getElementById('edit-email').value.trim(),
+    phone: document.getElementById('edit-phone').value.trim(),
+    company: document.getElementById('edit-company').value.trim(),
+    notes: document.getElementById('edit-notes').value.trim(),
+    services
+  };
+  save(); closeModal(); toast('Saved ✓');
+  renderAllSubscribers(); renderDashboard();
+}
+function deleteSubscriber(){
+  if(!editingId||!confirm('Delete this subscriber?')) return;
+  subscribers = subscribers.filter(s=>s.id!==editingId);
+  save(); closeModal(); toast('Deleted');
+  renderAllSubscribers(); renderDashboard();
+}
+
+// ══════════════════════════════════════════
+// WHATSAPP
+// ══════════════════════════════════════════
+const WA_TEMPLATES = {
+  monday: "Good morning, AWAKE community ☀️\n\nThis week's challenge: before every client call, pause for 10 seconds and set one intention for how you want to make them feel.\n\nThat's it. Let me know how it goes 💛\n\n— Cecilia",
+  podcast: "New episode of The Real Estate Majlis is live 🎙️\n\nThis week: [TOPIC]\n\n→ Spotify: [LINK]\n→ Apple: [LINK]\n\nIf it resonates, a review means the world 🌟\n\n— Cecilia",
+  event: "Hey [Name] 👋\n\nExciting news — I'm speaking at [EVENT] on [DATE].\n\nIf you're in [CITY], I'd love to see you there. Tickets: [LINK]\n\n— Cecilia",
+  followup: "Hi [Name] 👋\n\nJust following up on your enquiry about [SERVICE]. I'd love to chat more about how we can work together.\n\nWhen's a good time for a quick call?\n\n— Cecilia, AWAKE Method",
+  playbook: "Hey [Name] 👋\n\nHave you had a chance to go through the AWAKE Method playbook?\n\nWhich of the 10 CX foundations hit home for you? I read every reply 💛\n\n— Cecilia"
+};
+
+function loadWATemplate(){ const v=document.getElementById('wa-template').value; if(v&&WA_TEMPLATES[v]){ document.getElementById('wa-body').value=WA_TEMPLATES[v]; updateWAPreview(); }}
+function loadTemplate(k){ document.getElementById('wa-body').value=WA_TEMPLATES[k]||''; updateWAPreview(); go('whatsapp'); }
+function updateWAPreview(){ const t=document.getElementById('wa-body').value; document.getElementById('wa-preview').textContent=t||'Your message will appear here...'; document.getElementById('wa-chars').textContent=t.length+' characters'; }
+
+function sendWAMessage(){
+  const body = document.getElementById('wa-body').value.trim();
+  const seg = document.getElementById('wa-segment').value;
+  const sched = document.getElementById('wa-schedule').value;
+  if(!body){ toast('Write a message first','error'); return; }
+  const count = seg==='all' ? subscribers.length : subscribers.filter(s=>s.services.includes(seg)).length;
+  const entry = { id:uid(), body, segment:seg, sentAt: sched||new Date().toISOString(), scheduled:!!sched };
+  waHistory.unshift(entry); saveWA();
+  renderWAHistory();
+  document.getElementById('wa-body').value='';
+  document.getElementById('wa-preview').textContent='Your message will appear here...';
+  toast(sched ? `Message scheduled to ${count} subscribers ✓` : `Message queued for ${count} subscribers — connect Meta WhatsApp API to send live ✓`);
+}
+
+function saveWADraft(){ const b=document.getElementById('wa-body').value.trim(); if(!b){toast('Nothing to save','error');return;} toast('Draft saved ✓'); }
+
+function renderWAHistory(){
+  const el = document.getElementById('wa-history-list');
+  if(!waHistory.length){ el.innerHTML='<div class="empty">No messages sent yet.</div>'; return; }
+  el.innerHTML = waHistory.slice(0,5).map(m=>`
+    <div style="background:var(--surface2);border-radius:4px;padding:10px 12px;margin-bottom:8px;border:1px solid var(--border)">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
+        <span style="font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--wa)">${m.scheduled?'Scheduled':'Sent'} · ${SERVICE_LABELS[m.segment]||'All'}</span>
+        <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text3)">${formatDate(m.sentAt)}</span>
+      </div>
+      <div style="font-size:0.82rem;color:var(--text2);line-height:1.52">${m.body.slice(0,120)}${m.body.length>120?'...':''}</div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════
+// EDM
+// ══════════════════════════════════════════
+function updateEDMCount(){ document.getElementById('edm-chars').textContent=document.getElementById('edm-body').value.length+' characters'; }
+
+function scheduleEDM(){
+  const name=document.getElementById('edm-name').value.trim();
+  const seg=document.getElementById('edm-segment').value;
+  const subj=document.getElementById('edm-subject').value.trim();
+  if(!name){toast('Give the campaign a name','error');return;}
+  if(!subj){toast('Add a subject line','error');return;}
+  const count = seg==='all' ? subscribers.length : subscribers.filter(s=>s.services.includes(seg)).length;
+  const c = { id:uid(), name, subject:subj, segment:seg, sentAt:new Date().toISOString(), recipients:count };
+  campaigns.unshift(c); saveCampaigns(); renderSentCampaigns();
+  ['edm-name','edm-subject','edm-preview','edm-body'].forEach(id=>document.getElementById(id).value='');
+  toast(`"${name}" scheduled to ${count} subscribers — connect Mailchimp in Integrations to send live ✓`);
+}
+
+function saveEDMDraft(){ const n=document.getElementById('edm-name').value.trim(); if(!n){toast('Add a campaign name','error');return;} toast('Draft saved ✓'); }
+function previewEDM(){ const b=document.getElementById('edm-body').value; if(!b){toast('Write your email body first','error');return;} toast('Preview mode — connect Mailchimp to render full email preview.'); }
+
+function renderSentCampaigns(){
+  const el=document.getElementById('sent-campaigns');
+  if(!campaigns.length){ el.innerHTML='<div class="empty">No campaigns sent yet.</div>'; return; }
+  el.innerHTML = campaigns.slice(0,5).map(c=>`
+    <div class="campaign-item">
+      <div class="campaign-icon" style="background:var(--pink-dim)">✉️</div>
+      <div class="campaign-info"><div class="campaign-name">${c.name}</div><div class="campaign-meta">${c.subject} · ${SERVICE_LABELS[c.segment]||'All'} · ${formatDate(c.sentAt)}</div></div>
+      <div style="text-align:right"><div class="c-metric-num">${c.recipients}</div><div class="c-metric-label">recipients</div></div>
+      <span class="badge bg">Sent</span>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════
+// ANALYTICS
+// ══════════════════════════════════════════
+function renderAnalytics(){
+  const total = subscribers.length;
+  const thisMonth = subscribers.filter(s=>new Date(s.joined).getMonth()===new Date().getMonth()).length;
+  const wa = subscribers.filter(s=>s.services.includes('whatsapp')).length;
+  const enquiries = subscribers.filter(s=>s.services.some(sv=>['keynote','masterclass','training','collab'].includes(sv))).length;
+
+  document.getElementById('an-total').textContent = total;
+  document.getElementById('an-month').textContent = thisMonth;
+  document.getElementById('an-wa').textContent = wa;
+  document.getElementById('an-enquiries').textContent = enquiries;
+
+  const counts = {}; SERVICES.forEach(s=>counts[s]=0);
+  subscribers.forEach(sub=>sub.services.forEach(s=>{if(counts[s]!==undefined)counts[s]++;}));
+  const max = Math.max(...Object.values(counts), 1);
+
+  document.getElementById('analytics-bars').innerHTML = SERVICES.map(s=>`
+    <div class="bar-row">
+      <div class="bar-lbl" style="font-size:0.7rem">${SERVICE_LABELS[s].replace(' Enquiry','').replace(' Community','')}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(counts[s]/max*100)}%"></div></div>
+      <div class="bar-val">${counts[s]}</div>
+    </div>`).join('');
+
+  // Growth last 7 days
+  const days = [...Array(7)].map((_,i)=>{
+    const d = new Date(); d.setDate(d.getDate()-i);
+    return { label:d.toLocaleDateString('en-GB',{weekday:'short'}), count:subscribers.filter(s=>formatDate(s.joined)===formatDate(d.toISOString())).length };
+  }).reverse();
+  const maxG = Math.max(...days.map(d=>d.count),1);
+  document.getElementById('analytics-growth').innerHTML = days.map(d=>`
+    <div class="bar-row">
+      <div class="bar-lbl">${d.label}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(d.count/maxG*100)}%;background:var(--green)"></div></div>
+      <div class="bar-val">${d.count}</div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════
+// MISC
+// ══════════════════════════════════════════
+function openNewTemplate(){ toast('Template builder — type your template in the composer and use it by selecting "Load a template"'); }
+function openNewCampaign(){ document.getElementById('edm-name').focus(); }
+
+// Close modal on overlay click
+document.getElementById('edit-modal').addEventListener('click',function(e){ if(e.target===this) closeModal(); });
+
+// Init
+renderDashboard();
+renderWAHistory();
+renderSentCampaigns();
+</script>
+</body>
+</html>

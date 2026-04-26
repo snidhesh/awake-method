@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AWAKE Method Cecilia Reinaldo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--black:#0a0a0a;--white:#faf9f6;--pink:#e8185c;--pink-light:#ff4d84;--pink-pale:#fde8ef;--cream:#faf9f6;--warm-gray:#f2ede6;--mid-gray:#8a8580;--dark:#1a1814;--serif:'Playfair Display',serif;--sans:'DM Sans',sans-serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--black);overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,249,246,0.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.07);padding:0 5vw}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:68px}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-logo-word{font-family:var(--serif);font-weight:900;font-size:1.35rem;letter-spacing:0.1em}.nav-logo-word .aw{color:var(--black)}.nav-logo-word .ake{color:var(--pink)}
+.nav-logo-sub{font-family:var(--sans);font-size:0.5rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--mid-gray);margin-left:8px;padding-left:8px;border-left:1px solid rgba(0,0,0,0.12);line-height:1.3}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;font-size:0.82rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--black);transition:color 0.2s}
+.nav-links a:hover{color:var(--pink)}
+.nav-cta{background:var(--pink);color:#fff;padding:0.52rem 1.3rem;border-radius:2px;font-size:0.78rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:background 0.2s}
+.nav-cta:hover{background:var(--pink-light)}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:100px 5vw 60px;max-width:1400px;margin:0 auto;gap:4rem}
+.hero-eyebrow{font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--pink);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem}
+.hero-eyebrow::before{content:'';width:2rem;height:1px;background:var(--pink)}
+h1.hero-title{font-family:var(--serif);font-size:clamp(2.5rem,4.5vw,5rem);line-height:1.05;font-weight:900;color:var(--black);margin-bottom:1.5rem}
+h1.hero-title em{color:var(--pink);font-style:italic}
+.hero-sub{font-size:1.03rem;line-height:1.82;color:#4a4642;max-width:480px;margin-bottom:2.5rem}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:var(--pink);color:#fff;padding:0.9rem 2rem;border-radius:2px;font-size:0.84rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;border:none;cursor:pointer;display:inline-block}
+.btn-primary:hover{background:var(--pink-light);transform:translateY(-1px)}
+.btn-outline{border:1.5px solid var(--black);color:var(--black);padding:0.9rem 2rem;border-radius:2px;font-size:0.84rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;display:inline-block}
+.btn-outline:hover{background:var(--black);color:var(--white)}
+.hero-visual{position:relative;display:flex;justify-content:center;align-items:center}
+.hero-img-wrap{position:relative;width:100%;max-width:440px}
+.hero-img-bg{position:absolute;inset:20px -20px -20px 20px;background:var(--pink);border-radius:4px;z-index:0}
+.hero-img{position:relative;z-index:1;width:100%;border-radius:4px;display:block;aspect-ratio:3/4;background:linear-gradient(145deg,#1a1814 0%,#2d2520 100%);overflow:hidden}
+.hero-img-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,0.28);font-family:var(--serif);font-size:1.1rem;letter-spacing:0.1em;text-align:center;padding:2rem}
+.hero-img-placeholder strong{color:rgba(255,255,255,0.75);font-size:1.8rem;display:block;margin-bottom:0.5rem}
+.stat-strip{display:flex;gap:2rem;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(0,0,0,0.09)}
+.stat-num{font-family:var(--serif);font-size:2rem;font-weight:900;color:var(--pink);line-height:1}
+.stat-label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid-gray);margin-top:0.2rem}
+section{padding:100px 5vw}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-tag{font-size:0.7rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--pink);margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem}
+.section-tag::before{content:'';width:1.5rem;height:1px;background:var(--pink)}
+h2.section-title{font-family:var(--serif);font-size:clamp(2rem,3.8vw,3.4rem);line-height:1.1;font-weight:900;margin-bottom:1.5rem}
+h2.section-title em{color:var(--pink);font-style:italic}
+.section-intro{font-size:1.02rem;line-height:1.82;color:#4a4642;max-width:640px}
+.about{background:var(--dark);color:var(--white)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.about-pills{display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:2rem}
+.pill{background:rgba(232,24,92,0.13);border:1px solid rgba(232,24,92,0.27);color:var(--pink);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.38rem 0.85rem;border-radius:2px}
+.about-quote{font-family:var(--serif);font-size:1.42rem;font-style:italic;line-height:1.5;color:var(--white);border-left:3px solid var(--pink);padding-left:1.5rem;margin-bottom:1.5rem}
+.marquee-section{background:var(--pink);padding:1.15rem 0;overflow:hidden}
+.marquee-track{display:flex;gap:3rem;animation:marquee 22s linear infinite;white-space:nowrap}
+.marquee-item{font-family:var(--serif);font-size:1.05rem;font-style:italic;color:#fff;display:flex;align-items:center;gap:1rem;flex-shrink:0}
+.marquee-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.4);flex-shrink:0}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:rgba(0,0,0,0.08);margin-top:4rem;border:1.5px solid rgba(0,0,0,0.08)}
+.pillar-card{background:var(--cream);padding:2.4rem 2rem;transition:background 0.3s,color 0.3s}
+.pillar-card:hover{background:var(--black);color:var(--white)}
+.pillar-card:hover .pillar-num{color:var(--pink)}
+.pillar-card:hover .pillar-title{color:var(--white)}
+.pillar-card:hover .pillar-desc{color:rgba(255,255,255,0.52)}
+.pillar-num{font-family:var(--serif);font-size:3rem;font-weight:900;color:rgba(0,0,0,0.05);line-height:1;margin-bottom:1rem;transition:color 0.3s}
+.pillar-title{font-family:var(--serif);font-size:1.12rem;font-weight:700;margin-bottom:0.72rem;transition:color 0.3s}
+.pillar-desc{font-size:0.86rem;line-height:1.7;color:var(--mid-gray);transition:color 0.3s}
+/* TOUCHPOINTS */
+.touch-section{background:var(--black);color:var(--white)}
+.touch-intro{font-size:0.98rem;line-height:1.85;color:rgba(255,255,255,0.45);max-width:640px;margin-bottom:3rem}
+.touch-tabs{display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.08);overflow-x:auto}
+.touch-tab{padding:0.75rem 1.35rem;font-size:0.76rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.32);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--sans)}
+.touch-tab:hover{color:rgba(255,255,255,0.65)}
+.touch-tab.active{color:var(--pink);border-bottom-color:var(--pink)}
+.touch-panel{display:none;padding-top:2.8rem}
+.touch-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.touch-panel-tag{font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--pink);margin-bottom:0.75rem;display:block}
+.touch-panel-title{font-family:var(--serif);font-size:1.9rem;font-weight:900;color:#fff;margin-bottom:1.2rem;line-height:1.1}
+.touch-panel-body{font-size:0.93rem;line-height:1.82;color:rgba(255,255,255,0.44);margin-bottom:2rem}
+.touch-principles{display:flex;flex-direction:column;gap:1.2rem}
+.touch-principle{display:flex;gap:1.2rem;align-items:flex-start}
+.tp-num{font-family:var(--serif);font-size:1.5rem;font-weight:900;color:var(--pink);line-height:1;flex-shrink:0;width:1.9rem}
+.tp-title{font-weight:500;font-size:0.93rem;color:#fff;margin-bottom:0.22rem}
+.tp-desc{font-size:0.83rem;line-height:1.62;color:rgba(255,255,255,0.42)}
+.touch-dos-donts{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.4rem}
+.dos-box,.donts-box{border-radius:4px;padding:1.4rem}
+.dos-box{background:rgba(232,24,92,0.08);border:1px solid rgba(232,24,92,0.18)}
+.donts-box{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05)}
+.dd-head{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.9rem;font-weight:600}
+.dos-box .dd-head{color:var(--pink)}.donts-box .dd-head{color:rgba(255,255,255,0.28)}
+.dd-item{font-size:0.82rem;line-height:1.5;color:rgba(255,255,255,0.55);margin-bottom:0.55rem;padding-left:1rem;position:relative}
+.dos-box .dd-item::before{content:'✓';position:absolute;left:0;color:var(--pink);font-weight:700}
+.donts-box .dd-item::before{content:'×';position:absolute;left:0;color:rgba(255,255,255,0.22)}
+.touch-quote{font-family:var(--serif);font-style:italic;font-size:1.1rem;color:rgba(255,255,255,0.65);border-left:2px solid var(--pink);padding-left:1.1rem;line-height:1.55;margin-bottom:1.4rem}
+.touch-scorecard{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:4px;padding:1.4rem}
+.scorecard-title{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--pink);margin-bottom:0.9rem}
+.score-row{display:flex;justify-content:space-between;align-items:center;padding:0.45rem 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.8rem;color:rgba(255,255,255,0.48)}
+.score-row:last-child{border-bottom:none}
+.score-dots{display:flex;gap:3px}
+.score-dot{width:7px;height:7px;border-radius:50%;background:var(--pink)}
+.score-dot.empty{background:rgba(255,255,255,0.1)}
+/* PLAYBOOK */
+.playbook-section{background:var(--warm-gray)}
+.playbook-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:stretch;margin-top:3rem}
+.playbook-card{background:var(--cream);border:1.5px solid rgba(0,0,0,0.09);border-radius:4px;padding:2.4rem;display:flex;flex-direction:column}
+.playbook-card.featured{background:var(--black);color:var(--white);border-color:var(--black)}
+.playbook-badge{font-size:0.67rem;letter-spacing:0.15em;text-transform:uppercase;background:var(--pink);color:#fff;padding:0.27rem 0.75rem;border-radius:2px;display:inline-block;margin-bottom:1.4rem;align-self:flex-start}
+.playbook-price{font-family:var(--serif);font-size:3.5rem;font-weight:900;line-height:1;margin-bottom:0.25rem}
+.playbook-price sup{font-size:1.5rem;vertical-align:top;margin-top:0.55rem}
+.playbook-price-label{font-size:0.77rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid-gray);margin-bottom:1.4rem}
+.playbook-card.featured .playbook-price-label{color:rgba(255,255,255,0.32)}
+.playbook-title{font-family:var(--serif);font-size:1.4rem;font-weight:700;margin-bottom:0.7rem}
+.playbook-desc{font-size:0.87rem;line-height:1.78;color:#5a5550;margin-bottom:1.4rem;flex:1}
+.playbook-card.featured .playbook-desc{color:rgba(255,255,255,0.52)}
+.playbook-features{list-style:none;margin-bottom:2rem;display:flex;flex-direction:column;gap:0.52rem}
+.playbook-features li{font-size:0.83rem;display:flex;align-items:flex-start;gap:0.55rem;color:#3a3530;line-height:1.45}
+.playbook-card.featured .playbook-features li{color:rgba(255,255,255,0.72)}
+.playbook-features li::before{content:'—';color:var(--pink);flex-shrink:0;font-weight:700}
+.consult-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(232,24,92,0.14);border:1px solid rgba(232,24,92,0.28);color:var(--pink);font-size:0.73rem;font-weight:500;padding:0.38rem 0.85rem;border-radius:2px;margin-bottom:0.9rem}
+/* PODCAST */
+.podcast-section{background:var(--black);color:var(--white)}
+.podcast-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3rem}
+.podcast-art{aspect-ratio:1;background:linear-gradient(135deg,#1a1814,#2d2520);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;position:relative;overflow:hidden}
+.podcast-art::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 70%,rgba(232,24,92,0.2),transparent 60%)}
+.podcast-wave{display:flex;align-items:flex-end;gap:4px;margin-bottom:1.5rem;height:60px;position:relative;z-index:1}
+.podcast-wave span{width:6px;background:var(--pink);border-radius:3px;animation:wave 1.2s ease-in-out infinite}
+.podcast-wave span:nth-child(1){height:20px;animation-delay:0s}.podcast-wave span:nth-child(2){height:40px;animation-delay:0.1s}.podcast-wave span:nth-child(3){height:55px;animation-delay:0.2s}.podcast-wave span:nth-child(4){height:35px;animation-delay:0.3s}.podcast-wave span:nth-child(5){height:50px;animation-delay:0.15s}.podcast-wave span:nth-child(6){height:25px;animation-delay:0.05s}
+@keyframes wave{0%,100%{opacity:1;transform:scaleY(1)}50%{opacity:0.5;transform:scaleY(0.6)}}
+.podcast-name{font-family:var(--serif);font-size:1.65rem;font-weight:900;color:#fff;line-height:1.1;position:relative;z-index:1}
+.podcast-sub{font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--pink);margin-top:0.5rem;position:relative;z-index:1}
+.podcast-episodes{display:flex;flex-direction:column;gap:0.85rem;margin-top:2rem}
+.ep-item{border:1px solid rgba(255,255,255,0.06);border-radius:4px;padding:1.05rem 1.3rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:border-color 0.2s}
+.ep-item:hover{border-color:var(--pink)}
+.ep-title{font-size:0.86rem;font-weight:500;color:rgba(255,255,255,0.85)}
+.ep-num{font-size:0.7rem;color:var(--pink);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem}
+.ep-play{width:33px;height:33px;border:1px solid rgba(255,255,255,0.16);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s}
+.ep-play:hover{background:var(--pink);border-color:var(--pink)}
+.ep-play::after{content:'';border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent #fff;margin-left:2px}
+.insta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.insta-item{aspect-ratio:1;background:var(--dark);position:relative;overflow:hidden;cursor:pointer}
+.insta-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem;text-align:center}
+.insta-label{font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.18);margin-top:0.4rem}
+.speaking-section{background:var(--warm-gray)}
+.speaking-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+.speak-card{background:var(--cream);border:1.5px solid rgba(0,0,0,0.07);border-radius:4px;padding:2rem;transition:all 0.3s}
+.speak-card:hover{border-color:var(--pink);transform:translateY(-4px)}
+.speak-icon{width:44px;height:44px;background:var(--pink-pale);border-radius:4px;display:flex;align-items:center;justify-content:center;margin-bottom:1.4rem;font-size:1.25rem}
+.speak-title{font-family:var(--serif);font-size:1.12rem;font-weight:700;margin-bottom:0.7rem}
+.speak-desc{font-size:0.85rem;line-height:1.72;color:var(--mid-gray)}
+.speak-form-wrap{margin-top:4rem;background:var(--cream);border:1.5px solid rgba(0,0,0,0.07);border-radius:4px;padding:3rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem}
+.form-group{display:flex;flex-direction:column;gap:0.38rem}
+.form-group.full{grid-column:1/-1}
+label{font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid-gray)}
+input,select,textarea{font-family:var(--sans);font-size:0.94rem;padding:0.78rem 1rem;border:1.5px solid rgba(0,0,0,0.11);border-radius:2px;background:#fff;color:var(--black);outline:none;transition:border-color 0.2s;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--pink)}
+textarea{resize:vertical;min-height:118px}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.testi-card{background:var(--warm-gray);border-radius:4px;padding:2rem;border-left:3px solid var(--pink)}
+.testi-text{font-family:var(--serif);font-style:italic;font-size:0.97rem;line-height:1.65;margin-bottom:1.4rem;color:var(--dark)}
+.testi-author{font-size:0.76rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--mid-gray)}
+footer{background:var(--dark);color:rgba(255,255,255,0.42);padding:4rem 5vw 2rem}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.05)}
+.footer-brand p{margin-top:0.75rem;font-size:0.85rem;line-height:1.65;max-width:275px}
+.footer-col h4{font-family:var(--serif);font-size:0.98rem;color:#fff;margin-bottom:1rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.5rem}
+.footer-col a{color:rgba(255,255,255,0.36);text-decoration:none;font-size:0.82rem;transition:color 0.2s}
+.footer-col a:hover{color:var(--pink)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;font-size:0.75rem}
+.footer-logo-wrap{display:flex;align-items:center;margin-bottom:0.6rem}
+.f-aw{font-family:var(--serif);font-weight:900;font-size:1.18rem;color:#fff;letter-spacing:0.1em}
+.f-ake{font-family:var(--serif);font-weight:900;font-size:1.18rem;color:var(--pink);letter-spacing:0.1em}
+.f-sub{font-family:var(--sans);font-size:0.48rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-left:7px;padding-left:7px;border-left:1px solid rgba(255,255,255,0.1);line-height:1.3}
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;text-align:center;padding:120px 5vw 60px}
+  .hero-visual{order:-1}.hero-eyebrow{justify-content:center}.stat-strip{justify-content:center}
+  .about-grid,.podcast-grid,.speaking-grid,.footer-top{grid-template-columns:1fr}
+  .pillars-grid{grid-template-columns:1fr 1fr}
+  .insta-grid{grid-template-columns:repeat(3,1fr)}.form-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}.hero-sub{max-width:100%}
+  .touch-panel.active{grid-template-columns:1fr}.touch-dos-donts{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .nav-links{display:none}.nav-logo-sub{display:none}
+  .pillars-grid{grid-template-columns:1fr}.insta-grid{grid-template-columns:repeat(2,1fr)}.speaking-grid{grid-template-columns:1fr}
+}
+/* TOUCHPOINT CARDS */
+.tc-card{background:#1e1b18;padding:2rem 1.5rem;transition:background 0.25s;cursor:default}
+.tc-card:hover{background:rgba(232,24,92,0.1)}
+.tc-icon{font-size:1.55rem;margin-bottom:1rem}
+.tc-name{font-family:var(--serif);font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.5rem}
+.tc-tag{font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);margin-bottom:0.85rem}
+.tc-body{font-size:0.82rem;line-height:1.65;color:rgba(255,255,255,0.4)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-word"><span class="aw">AW</span><span class="ake">AKE</span></span>
+      <span class="nav-logo-sub">Method<br>by Cecilia Reinaldo</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#method">The Method</a></li>
+      <li><a href="#playbook">Playbook</a></li>
+      <li><a href="#podcast">Podcast</a></li>
+      <li><a href="#community">Community</a></li>
+      <li><a href="#speak">Speaking</a></li>
+    </ul>
+    <a href="#speak" class="nav-cta">Book Cecilia</a>
+  </div>
+</nav>
+
+<section class="hero" style="padding-top:100px">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Customer Experience · Sales · Leadership</div>
+    <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--mid-gray);margin-bottom:0.75rem">Presence Is the Product.</div>
+    <h1 class="hero-title">Customer Experience<br>Is The <em>Strategy.</em></h1>
+    <p class="hero-sub">Cecilia Reinaldo helps you review your customer journey, convert more sales, and understand the underlying reasons your business isn't growing the way it should. So you can lead with intention and build loyalty that lasts.</p>
+    <div class="hero-actions">
+      <a href="#playbook" class="btn-primary">Get the Playbook</a>
+      <a href="#speak" class="btn-outline">Book a Masterclass</a>
+    </div>
+    <div class="stat-strip">
+      <div class="stat"><div class="stat-num">3,000+</div><div class="stat-label">Professionals Trained</div></div>
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Events & Talks</div></div>
+      <div class="stat"><div class="stat-num">20</div><div class="stat-label">Years in Sales & CX</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div style="position:relative;width:100%;max-width:440px;margin:0 auto">
+      <!-- Decorative elements -->
+      <div style="position:absolute;top:-18px;right:-18px;width:160px;height:160px;border:1.5px solid var(--pink);border-radius:4px;z-index:0;opacity:0.35"></div>
+      <div style="position:absolute;bottom:-14px;left:-14px;width:80px;height:80px;background:var(--pink);border-radius:4px;z-index:0;opacity:0.18"></div>
+      <!-- Photo frame with real photo -->
+      <div style="position:relative;z-index:1;border-radius:4px;overflow:hidden;aspect-ratio:4/5;background:var(--dark)">
+        <img src="https://ctf-uae.com/img/2024/advisors/proptech/Cecilia-Reinaldo.jpg" alt="Cecilia Reinaldo" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block">
+        <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,10,10,0.82));padding:2rem 1.4rem 1.4rem">
+          <div style="font-family:var(--serif);font-size:1.3rem;font-weight:900;color:#fff;line-height:1.1;margin-bottom:0.25rem">Cecilia Reinaldo</div>
+          <div style="font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--pink);font-weight:500">Presence Is the Product</div>
+        </div>
+      </div>
+      <!-- Floating tagline card -->
+      <div style="position:absolute;bottom:60px;right:-30px;z-index:2;background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:4px;padding:12px 16px;max-width:175px;box-shadow:0 4px 24px rgba(0,0,0,0.08)">
+        <div style="font-family:var(--serif);font-size:0.82rem;font-style:italic;color:var(--dark);line-height:1.4;margin-bottom:6px">"Presence Is the Product."</div>
+        <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink)">The AWAKE Method</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Customer Experience Is The Strategy<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Service Is The Starting Line<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Emotion Is The New Currency<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Anticipate, Don't React<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Hospitality Is Everyone's Job<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Make It Personal, Not Polished<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Customer Experience Is The Strategy<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Service Is The Starting Line<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Emotion Is The New Currency<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Anticipate, Don't React<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Hospitality Is Everyone's Job<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Make It Personal, Not Polished<span class="marquee-dot"></span></span>
+  </div>
+</div>
+
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div>
+        <div class="section-tag" style="color:var(--pink)">About Cecilia</div>
+        <h2 class="section-title" style="color:var(--white)">Waking People Up To <em>Their Potential</em></h2>
+        <p style="font-size:1rem;line-height:1.87;color:rgba(250,249,246,0.62);margin-bottom:1.5rem">Cecilia Reinaldo is a customer experience strategist, sales performance coach, and keynote speaker based in Dubai. With 20 years in sales and CX, she has trained over 3,000 professionals across real estate, luxury hospitality, and high-performance service industries.</p>
+        <p style="font-size:0.93rem;line-height:1.82;color:rgba(250,249,246,0.42);margin-bottom:2rem">She created the AWAKE Method after watching talented professionals chase success while disconnected from their purpose, their clients, and themselves. Her work bridges hospitality intelligence and sales performance proving the discipline behind exceptional service is the same engine that drives loyalty, conversion, and growth.</p>
+        <div class="about-pills">
+          <span class="pill">Customer Experience</span><span class="pill">Sales Coaching</span><span class="pill">Hospitality Culture</span><span class="pill">Real Estate</span><span class="pill">Leadership</span><span class="pill">Keynote Speaking</span>
+        </div>
+      </div>
+      <div>
+        <div class="about-quote">"You can't sell what you don't feel. You can't lead what you don't live."</div>
+        <p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:2rem">— Cecilia Reinaldo, The AWAKE Method</p>
+        <p style="font-size:0.9rem;line-height:1.87;color:rgba(250,249,246,0.48)">Inspired by thought leaders like Brené Brown and Mel Robbins, Cecilia brings raw authenticity and practical frameworks together tools that don't just inspire but transform. Her work is rooted in a single belief: awareness is where everything begins your clarity, your energy, your results.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="method" style="background:var(--cream)">
+  <div class="section-inner">
+    <div class="section-tag">The AWAKE Method</div>
+    <h2 class="section-title">10 Foundations of Customer<br><em>Experience Excellence</em></h2>
+    <p class="section-intro">These are the non-negotiable standards. The baseline that makes everything else possible. Before you talk about experience you must master these foundations.</p>
+    <div class="pillars-grid">
+      <div class="pillar-card"><div class="pillar-num">01</div><div class="pillar-title">Service Is the Starting Line</div><div class="pillar-desc">Service excellence is your license to play. CX begins only after your fundamentals are flawless the guest can never feel the friction of your process.</div></div>
+      <div class="pillar-card"><div class="pillar-num">02</div><div class="pillar-title">Emotion Is the New Currency</div><div class="pillar-desc">People forget details but remember how you made them feel. Every touchpoint is a chance to make someone feel special, respected, or inspired.</div></div>
+      <div class="pillar-card"><div class="pillar-num">03</div><div class="pillar-title">Hospitality Is Everyone's Job</div><div class="pillar-desc">From the lobby to the boardroom, everyone shapes the customer journey. Hospitality is a behavioral language that defines culture not a department.</div></div>
+      <div class="pillar-card"><div class="pillar-num">04</div><div class="pillar-title">Make It Personal, Not Polished</div><div class="pillar-desc">Perfection can be robotic. Authenticity is magnetic. Let people feel your humanity it's the one thing AI will never replace.</div></div>
+      <div class="pillar-card"><div class="pillar-num">05</div><div class="pillar-title">Anticipate, Don't React</div><div class="pillar-desc">Excellence happens when you see the need before it's expressed. Curiosity fuels anticipation it's how you make people feel known, not processed.</div></div>
+      <div class="pillar-card"><div class="pillar-num">06</div><div class="pillar-title">Empower the Front Line</div><div class="pillar-desc">The people closest to the customer have the greatest power to create magic if you let them. Give them permission to act, not just to follow scripts.</div></div>
+      <div class="pillar-card"><div class="pillar-num">07</div><div class="pillar-title">Ritualize Recognition</div><div class="pillar-desc">Every act of excellence deserves a spotlight. What you celebrate internally becomes what customers feel externally.</div></div>
+      <div class="pillar-card"><div class="pillar-num">08</div><div class="pillar-title">Turn Feedback Into Fuel</div><div class="pillar-desc">Feedback isn't criticism it's a mirror. Listen deeply. Respond humbly. Improve relentlessly.</div></div>
+      <div class="pillar-card"><div class="pillar-num">09</div><div class="pillar-title">Design Moments That Matter</div><div class="pillar-desc">Map your customer journey and identify emotional peaks. Then overdeliver exactly there that's how memories are made.</div></div>
+      <div class="pillar-card" style="grid-column:1/-1;background:var(--black);color:var(--white)">
+        <div class="pillar-num" style="color:rgba(232,24,92,0.22)">10</div>
+        <div class="pillar-title" style="color:var(--white);font-size:1.38rem">Make the Ordinary Feel Extraordinary</div>
+        <div class="pillar-desc" style="color:rgba(255,255,255,0.45);max-width:680px;font-size:0.98rem;line-height:1.82">Unreasonable hospitality is about generosity of spirit not spending more, but caring more. Customer Experience isn't a project; it's a posture. When service becomes second nature, experience becomes your signature.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOMER TOUCHPOINTS 5 CHANNELS -->
+<section class="touch-section" id="voice">
+  <div class="section-inner">
+    <div class="section-tag" style="color:var(--pink)">Every Touchpoint Is Your Brand</div>
+    <h2 class="section-title" style="color:var(--white)">The 5 Channels of<br><em>Customer Experience</em></h2>
+    <p class="touch-intro">Your client doesn't separate their experience by channel they feel it as one. Every touchpoint must deliver the same standard of warmth, clarity, and intention.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.07);border-radius:6px;overflow:hidden;margin-top:2.5rem">
+      <div class="tc-card"><div class="tc-icon">📞</div><div class="tc-name">Phone</div><div class="tc-tag">Smile In Your Voice</div><p class="tc-body">Your tone arrives before your words. Smile before you pick up. Be warm, unhurried, and fully present every call is someone's first impression of you.</p></div>
+      <div class="tc-card"><div class="tc-icon">💬</div><div class="tc-name">WhatsApp</div><div class="tc-tag">Personal Space, Personal Standard</div><p class="tc-body">Giving you their WhatsApp is an act of trust. Write like a person, respond within the hour, and end every message with a clear next step.</p></div>
+      <div class="tc-card"><div class="tc-icon">✉️</div><div class="tc-name">Email</div><div class="tc-tag">Your Written Brand</div><p class="tc-body">Every message mirrors your professionalism. Subject lines that earn the open, personal copy that earns the reply, a close that earns the next meeting.</p></div>
+      <div class="tc-card"><div class="tc-icon">📱</div><div class="tc-name">Digital</div><div class="tc-tag">Storefront When You're Not in the Room</div><p class="tc-body">Your Instagram and LinkedIn speak before you do. Show up consistently, give value before you sell, and let your expertise lead every post.</p></div>
+      <div class="tc-card"><div class="tc-icon">🤝</div><div class="tc-name">Walk-In</div><div class="tc-tag">The Ultimate Moment of Truth</div><p class="tc-body">Stand when they enter. Offer before they ask. Keep your space impeccable. Walk them to the door. The last thing they feel is what they remember.</p></div>
+    </div>
+
+    <div style="display:none"> <!-- legacy panels -->
+      <!-- PHONE -->
+      <div class="touch-panel active" id="panel-0">
+        <div>
+          <span class="touch-panel-tag">Smile In Your Voice The Phone Standard</span>
+          <div class="touch-panel-title">Phone Calls</div>
+          <p class="touch-panel-body">The phone is the most intimate remote channel your energy, tone, and presence are fully exposed. Before your words arrive, your attitude does. The AWAKE standard: a warm, confident, unhurried voice that makes every caller feel like your only call of the day.</p>
+          <div class="touch-principles">
+            <div class="touch-principle"><div class="tp-num">01</div><div><div class="tp-title">Your Tone Arrives First</div><div class="tp-desc">Smile before you pick up it changes the acoustic quality of your voice. Clients feel your energy before your words land.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">02</div><div><div class="tp-title">Slow Down to Speed Up Trust</div><div class="tp-desc">Rushing signals anxiety. Pace yourself deliberately speak at 80% of your natural speed. Confident people don't hurry. They arrive.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">03</div><div><div class="tp-title">Listen to Understand, Not to Reply</div><div class="tp-desc">Stay fully present until the client has finished. Pause before responding. Silence is not dead air it's respect made audible.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">04</div><div><div class="tp-title">Use Their Name Intentionally</div><div class="tp-desc">Once warmly at the opening, once at a key moment of connection. Never robotically. A name spoken with care is the most personal sound in a conversation.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">05</div><div><div class="tp-title">End on a High Always</div><div class="tp-desc">The last thing they hear is what they remember. Close with something specific and forward-facing. Give them something to look forward to, not a vague "I'll be in touch."</div></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="touch-dos-donts">
+            <div class="dos-box"><div class="dd-head">Do</div><div class="dd-item">Smile before answering it changes your tone</div><div class="dd-item">Use the client's name naturally</div><div class="dd-item">Pause after they finish speaking</div><div class="dd-item">Confirm next steps clearly before hanging up</div><div class="dd-item">Return missed calls within 30 minutes</div></div>
+            <div class="donts-box"><div class="dd-head">Don't</div><div class="dd-item">Rush the call or multitask</div><div class="dd-item">Use scripted openers that sound robotic</div><div class="dd-item">Put clients on hold without asking</div><div class="dd-item">End a call with "I'll be in touch"</div><div class="dd-item">Answer while distracted or in noise</div></div>
+          </div>
+          <div class="touch-quote">"People can hear a smile. They can also hear indifference. Make the choice before you pick up."</div>
+          <div class="touch-scorecard">
+            <div class="scorecard-title">Phone Excellence Scorecard</div>
+            <div class="score-row">Warm opening tone <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span></span></div>
+            <div class="score-row">Unhurried pace <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot empty"></span></span></div>
+            <div class="score-row">Active listening <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span></span></div>
+            <div class="score-row">Personalization <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot empty"></span><span class="score-dot empty"></span></span></div>
+            <div class="score-row">Strong close <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot empty"></span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WHATSAPP -->
+      <div class="touch-panel" id="panel-1">
+        <div>
+          <span class="touch-panel-tag">Conversational · Responsive · Human</span>
+          <div class="touch-panel-title">WhatsApp</div>
+          <p class="touch-panel-body">WhatsApp is the most personal business channel in the region and the most abused. Clients who give you their WhatsApp are giving you access to their personal space. That trust demands intention. The AWAKE standard: every message should feel like it came from a human who genuinely cares, not a broadcast tool.</p>
+          <div class="touch-principles">
+            <div class="touch-principle"><div class="tp-num">01</div><div><div class="tp-title">Respond Within the Hour</div><div class="tp-desc">Speed signals respect. A client who messages you is in a moment of engagement catching them in that window is worth ten cold follow-ups.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">02</div><div><div class="tp-title">Write Like a Person, Not a Brand</div><div class="tp-desc">Avoid formal, corporate language. WhatsApp is conversational. Be warm, clear, brief. Read your message aloud if it sounds like a press release, rewrite it.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">03</div><div><div class="tp-title">Never Mass-Broadcast Unannounced</div><div class="tp-desc">Unsolicited bulk messages destroy trust instantly. Every message should feel personal. If you use broadcast lists, segment carefully and personalize the opening.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">04</div><div><div class="tp-title">Use Voice Notes Strategically</div><div class="tp-desc">A voice note at the right moment especially for warm check-ins or complex information adds a human dimension text cannot. Your tone and care come through.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">05</div><div><div class="tp-title">Always End With a Clear Next Step</div><div class="tp-desc">Every conversation should close with clarity: what happens next, when, and who is responsible. Ambiguity breeds anxiety and anxiety kills trust.</div></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="touch-dos-donts">
+            <div class="dos-box"><div class="dd-head">Do</div><div class="dd-item">Use the client's name in your first message</div><div class="dd-item">Keep messages concise one topic at a time</div><div class="dd-item">Acknowledge before you answer</div><div class="dd-item">Use voice notes for warmth and nuance</div><div class="dd-item">Set expectations for your response times</div></div>
+            <div class="donts-box"><div class="dd-head">Don't</div><div class="dd-item">Send walls of text or multiple messages in a row</div><div class="dd-item">Use WhatsApp for conflict or complaints</div><div class="dd-item">Send mass broadcasts without personalization</div><div class="dd-item">Leave clients on "read" without reason</div><div class="dd-item">Be overly formal match the medium</div></div>
+          </div>
+          <div class="touch-quote">"Giving you their WhatsApp is an act of trust. Treat it like the privilege it is."</div>
+          <div class="touch-scorecard">
+            <div class="scorecard-title">WhatsApp Excellence Scorecard</div>
+            <div class="score-row">Response under 1 hour <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span></span></div>
+            <div class="score-row">Personalized opening <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot empty"></span></span></div>
+            <div class="score-row">Human, conversational tone <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span></span></div>
+            <div class="score-row">Clear next step in every message <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot empty"></span><span class="score-dot empty"></span></span></div>
+            <div class="score-row">Strategic voice note use <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot empty"></span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="touch-panel" id="panel-2">
+        <div>
+          <span class="touch-panel-tag">Clarity · Professionalism · Care</span>
+          <div class="touch-panel-title">Email</div>
+          <p class="touch-panel-body">Email is your written brand. Every message is a mirror of your professionalism spelling mistakes, rushed replies, and generic templates signal neglect. The AWAKE standard: communication that builds anticipation and trust before the deal even begins.</p>
+          <div class="touch-principles">
+            <div class="touch-principle"><div class="tp-num">01</div><div><div class="tp-title">Subject Lines That Earn the Open</div><div class="tp-desc">Your subject line is a promise. Make it specific, valuable, and human. "Following up" is not a subject line it's a missed opportunity to re-engage.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">02</div><div><div class="tp-title">One Email, One Purpose</div><div class="tp-desc">Each email should have a single, clear intention. Multi-purpose emails get responded to in the least important part or not at all.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">03</div><div><div class="tp-title">Personalize Beyond the Name</div><div class="tp-desc">Reference something specific to this client a conversation, a preference, a milestone. Generic emails get deleted. Personal ones get saved and shared.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">04</div><div><div class="tp-title">Acknowledge Within 4 Hours</div><div class="tp-desc">If you can't answer fully, acknowledge receipt and give a timeline. Silence is never professional it's just invisible neglect.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">05</div><div><div class="tp-title">End With Warmth and Clarity</div><div class="tp-desc">Close every email with the next step and a genuinely warm sign-off. "Looking forward to connecting" beats "Regards" every single time.</div></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="touch-dos-donts">
+            <div class="dos-box"><div class="dd-head">Do</div><div class="dd-item">Proofread every email before sending</div><div class="dd-item">Use specific, compelling subject lines</div><div class="dd-item">Reference something personal to the client</div><div class="dd-item">Keep it concise respect their time</div><div class="dd-item">Always include a clear call to action</div></div>
+            <div class="donts-box"><div class="dd-head">Don't</div><div class="dd-item">Use copy-paste templates without personalizing</div><div class="dd-item">Send "just checking in" with no value</div><div class="dd-item">Use ALL CAPS or excessive exclamation marks</div><div class="dd-item">Bury the key point at the bottom</div><div class="dd-item">Reply to old emails without acknowledging the delay</div></div>
+          </div>
+          <div class="touch-quote">"Every message is a mirror of your professionalism. Make sure you like what's reflected."</div>
+          <div class="touch-scorecard">
+            <div class="scorecard-title">Email Excellence Scorecard</div>
+            <div class="score-row">Compelling subject line <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot empty"></span></span></div>
+            <div class="score-row">Personal, specific opening <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span></span></div>
+            <div class="score-row">Clear single purpose <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot empty"></span><span class="score-dot empty"></span></span></div>
+            <div class="score-row">Response acknowledged within 4hrs <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span></span></div>
+            <div class="score-row">Warm, clear close <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot empty"></span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIGITAL -->
+      <div class="touch-panel" id="panel-3">
+        <div>
+          <span class="touch-panel-tag">Consistency · Presence · Value</span>
+          <div class="touch-panel-title">Digital Presence</div>
+          <p class="touch-panel-body">Your digital presence Instagram, LinkedIn, your website is your storefront when you're not in the room. It speaks before you do. The AWAKE standard: every post, story, and profile element should communicate the same warmth, expertise, and intention you bring in person.</p>
+          <div class="touch-principles">
+            <div class="touch-principle"><div class="tp-num">01</div><div><div class="tp-title">Show Up Consistently</div><div class="tp-desc">You don't need to post every day, but you must show up regularly. Inconsistency signals unreliability. Create a rhythm and maintain it.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">02</div><div><div class="tp-title">Give Before You Ask</div><div class="tp-desc">Share insight, perspective, and value without expecting anything in return. The professionals who build the biggest audiences teach they don't just promote.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">03</div><div><div class="tp-title">Reply to Every Comment and DM</div><div class="tp-desc">Engagement is a conversation, not a broadcast. When someone takes the time to interact, they deserve a real, timely response. Loyalty is built one interaction at a time.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">04</div><div><div class="tp-title">Let Your Expertise Lead</div><div class="tp-desc">Don't just share listings or promotions share what you know. The AWAKE Method, CX principles, market intelligence: make your insight visible and valuable.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">05</div><div><div class="tp-title">Your Profile Is Your First Impression</div><div class="tp-desc">A professional photo, a clear bio, a consistent identity. Clients check your digital presence before they contact you. Make sure what they find reflects who you are at your best.</div></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="touch-dos-donts">
+            <div class="dos-box"><div class="dd-head">Do</div><div class="dd-item">Post with a consistent visual identity</div><div class="dd-item">Share insights and value not just listings</div><div class="dd-item">Reply to comments within 24 hours</div><div class="dd-item">Use stories to show the human behind the brand</div><div class="dd-item">Tag relevant locations and collaborators</div></div>
+            <div class="donts-box"><div class="dd-head">Don't</div><div class="dd-item">Post inconsistently or disappear for weeks</div><div class="dd-item">Only promote give without an agenda</div><div class="dd-item">Ignore DMs or comments</div><div class="dd-item">Share low-quality or unbranded visuals</div><div class="dd-item">Copy others without adding your perspective</div></div>
+          </div>
+          <div class="touch-quote">"Your digital presence speaks before you do. Make sure it says what you mean."</div>
+          <div class="touch-scorecard">
+            <div class="scorecard-title">Digital Presence Scorecard</div>
+            <div class="score-row">Profile quality & completeness <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span></span></div>
+            <div class="score-row">Posting consistency <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot empty"></span><span class="score-dot empty"></span></span></div>
+            <div class="score-row">Value-to-promotion ratio <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot empty"></span></span></div>
+            <div class="score-row">Engagement responsiveness <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot empty"></span><span class="score-dot empty"></span></span></div>
+            <div class="score-row">Brand consistency across platforms <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot empty"></span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WALK-IN -->
+      <div class="touch-panel" id="panel-4">
+        <div>
+          <span class="touch-panel-tag">First Impression · Presence · The Room</span>
+          <div class="touch-panel-title">Walk-In & In-Person</div>
+          <p class="touch-panel-body">The walk-in is the ultimate moment of truth no screen to hide behind, no time to craft the perfect response. The client sees you and decides within seconds. The AWAKE standard: full presence, commanding grace, and an environment that tells your story before you speak a word.</p>
+          <div class="touch-principles">
+            <div class="touch-principle"><div class="tp-num">01</div><div><div class="tp-title">Stand Before They Reach You</div><div class="tp-desc">The moment a client enters, stand. Walk towards them. This single act communicates: you matter, I was waiting for you. It costs nothing and signals everything.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">02</div><div><div class="tp-title">Your Environment Is Your Message</div><div class="tp-desc">A cluttered desk, a broken chair, a coffee-stained table these details speak before you do. The space you invite clients into declares your standards.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">03</div><div><div class="tp-title">Offer Before They Ask</div><div class="tp-desc">Water, a seat, a moment to settle anticipate basic needs before they become a request. Anticipation is the most luxurious form of service.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">04</div><div><div class="tp-title">Make Eye Contact, Not Eye Control</div><div class="tp-desc">Warm, confident eye contact communicates presence and trust. The goal is connection, not power. Soft eyes, open posture, open conversation.</div></div></div>
+            <div class="touch-principle"><div class="tp-num">05</div><div><div class="tp-title">Send Them Away With a Feeling</div><div class="tp-desc">Walk every client to the door. Thank them by name. Give them the next step verbally and in writing. The last thing they experience should make them want to return.</div></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="touch-dos-donts">
+            <div class="dos-box"><div class="dd-head">Do</div><div class="dd-item">Stand and greet every client at the door</div><div class="dd-item">Offer refreshments before they're requested</div><div class="dd-item">Keep your space spotless and intentional</div><div class="dd-item">Use the client's name throughout the meeting</div><div class="dd-item">Walk them out never let them leave unescorted</div></div>
+            <div class="donts-box"><div class="dd-head">Don't</div><div class="dd-item">Stay seated when a client enters</div><div class="dd-item">Check your phone during the meeting</div><div class="dd-item">Let noise or clutter compete for attention</div><div class="dd-item">Skip the personal follow-up after the visit</div><div class="dd-item">Rush them even when you're busy</div></div>
+          </div>
+          <div class="touch-quote">"The walk-in is where everything you say online is either confirmed or contradicted."</div>
+          <div class="touch-scorecard">
+            <div class="scorecard-title">In-Person Excellence Scorecard</div>
+            <div class="score-row">First impression within 10 seconds <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span></span></div>
+            <div class="score-row">Environment quality <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot empty"></span></span></div>
+            <div class="score-row">Anticipation of needs <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot empty"></span><span class="score-dot empty"></span></span></div>
+            <div class="score-row">Undivided presence <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span></span></div>
+            <div class="score-row">Send-off ritual <span class="score-dots"><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot"></span><span class="score-dot empty"></span><span class="score-dot empty"></span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAYBOOK FREE ONLY -->
+<section class="playbook-section" id="playbook">
+  <div class="section-inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center">
+      <div>
+        <div class="section-tag">Free Playbook</div>
+        <h2 class="section-title">Start Your<br><em>AWAKE</em> Journey</h2>
+        <p style="font-size:1rem;line-height:1.85;color:#5a5550;margin-bottom:1.5rem">Register your name and email and receive the foundational AWAKE Method guide a practical introduction to the 10 Foundations of Customer Experience Excellence with real tools you can use immediately.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-bottom:2rem">
+          <li style="display:flex;align-items:flex-start;gap:0.7rem;font-size:0.88rem;color:#3a3530"><span style="color:var(--pink);font-weight:700;flex-shrink:0">✓</span>The 10 CX Foundations explained with practical context</li>
+          <li style="display:flex;align-items:flex-start;gap:0.7rem;font-size:0.88rem;color:#3a3530"><span style="color:var(--pink);font-weight:700;flex-shrink:0">✓</span>Introduction to the 5 customer touchpoints</li>
+          <li style="display:flex;align-items:flex-start;gap:0.7rem;font-size:0.88rem;color:#3a3530"><span style="color:var(--pink);font-weight:700;flex-shrink:0">✓</span>3 exercises to audit your current CX today</li>
+          <li style="display:flex;align-items:flex-start;gap:0.7rem;font-size:0.88rem;color:#3a3530"><span style="color:var(--pink);font-weight:700;flex-shrink:0">✓</span>The AWAKE daily intention ritual and 14-day tracker</li>
+          <li style="display:flex;align-items:flex-start;gap:0.7rem;font-size:0.88rem;color:#3a3530"><span style="color:var(--pink);font-weight:700;flex-shrink:0">✓</span>Key principles from Cecilia's speaking and training work</li>
+        </ul>
+        <div style="font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid-gray)">Free · Instant PDF Download</div>
+      </div>
+      <div style="background:#fff;border:1.5px solid rgba(0,0,0,0.09);border-radius:6px;padding:2.8rem">
+        <div style="font-family:var(--serif);font-size:2rem;font-weight:900;color:var(--pink);margin-bottom:0.25rem">Free</div>
+        <div style="font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid-gray);margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(0,0,0,0.08)">Register to download</div>
+        <div style="display:flex;flex-direction:column;gap:0.9rem;margin-bottom:1.4rem">
+          <div style="display:flex;flex-direction:column;gap:0.35rem">
+            <label style="font-size:0.68rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid-gray)">Your Name</label>
+            <input type="text" placeholder="Your full name" style="font-family:var(--sans);font-size:0.93rem;padding:0.78rem 1rem;border:1.5px solid rgba(0,0,0,0.11);border-radius:3px;background:#faf9f6;color:var(--black);outline:none;transition:border-color 0.2s;width:100%">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.35rem">
+            <label style="font-size:0.68rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid-gray)">Your Email Address</label>
+            <input type="email" placeholder="you@yourcompany.com" style="font-family:var(--sans);font-size:0.93rem;padding:0.78rem 1rem;border:1.5px solid rgba(0,0,0,0.11);border-radius:3px;background:#faf9f6;color:var(--black);outline:none;transition:border-color 0.2s;width:100%">
+          </div>
+        </div>
+        <button class="btn-primary" style="width:100%;padding:1rem;font-size:0.88rem;cursor:pointer">Get Your Free Playbook →</button>
+        <p style="font-size:0.7rem;color:var(--mid-gray);text-align:center;margin-top:0.9rem">No spam. Unsubscribe any time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PODCAST -->
+<section class="podcast-section" id="podcast">
+  <div class="section-inner">
+    <div class="section-tag" style="color:var(--pink)">Listen & Learn</div>
+    <h2 class="section-title" style="color:var(--white)">The Real Estate Majlis <em>Podcast</em></h2>
+    <div class="podcast-grid">
+      <div>
+        <p style="font-size:0.94rem;line-height:1.87;color:rgba(255,255,255,0.44);margin-bottom:0.75rem">Hosted by Mahmoud Al Burai and Cecilia Reinaldo, brought to you by Thinkprop Institute. Wide-ranging conversations on UAE real estate market trends, investment, leadership, and what it truly takes to perform at the highest level.</p>
+        <p style="font-size:0.82rem;color:rgba(255,255,255,0.25);margin-bottom:2rem">Powered by Bayut UAE's largest real estate portal.</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem">
+          <a href="https://open.spotify.com/show/01ql9GHXl9IL3XmavocY6o" target="_blank" class="btn-primary" style="font-size:0.77rem;padding:0.62rem 1.3rem">Listen on Spotify</a>
+          <a href="https://podcasts.apple.com" target="_blank" class="btn-outline" style="font-size:0.77rem;padding:0.62rem 1.3rem;border-color:rgba(255,255,255,0.16);color:rgba(255,255,255,0.6)">Apple Podcasts</a>
+        </div>
+        <div class="podcast-art">
+          <div class="podcast-wave"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="podcast-name">The Real Estate<br>Majlis</div>
+          <div class="podcast-sub">Mahmoud Al Burai & Cecilia Reinaldo</div>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:1rem">Latest Episodes</p>
+        <div class="podcast-episodes">
+          <a href="https://open.spotify.com/episode/3kiBVOhaOTExCZggVPlOiK" target="_blank" style="text-decoration:none">
+            <div class="ep-item"><div><div class="ep-title">The TikTok Lawyer Breaks Down UAE Real Estate Law | Arash Zad</div><div class="ep-num">Mar 2025 · 32 min</div></div><div class="ep-play"></div></div>
+          </a>
+          <a href="https://open.spotify.com/episode/6XqkIlFELHZEO3selC7p34" target="_blank" style="text-decoration:none">
+            <div class="ep-item"><div><div class="ep-title">Dubai Commercial Real Estate: What's Really Driving the Market? | Behnam Bargh</div><div class="ep-num">Jan 2025 · 17 min</div></div><div class="ep-play"></div></div>
+          </a>
+          <a href="https://open.spotify.com/episode/2jSfGfTkiUA4cglkJrwfBr" target="_blank" style="text-decoration:none">
+            <div class="ep-item"><div><div class="ep-title">How Smart Investors Win in UAE Real Estate | Dr. Mohanad Alwadiya</div><div class="ep-num">Dec 2024 · 32 min</div></div><div class="ep-play"></div></div>
+          </a>
+          <a href="https://open.spotify.com/episode/5RfGFs3f5sNwRXEEfxJVpG" target="_blank" style="text-decoration:none">
+            <div class="ep-item"><div><div class="ep-title">Inside Million Dollar Listing UAE Season 2 | Ben Bandari & Sarah Serhan</div><div class="ep-num">Nov 2024 · 29 min</div></div><div class="ep-play"></div></div>
+          </a>
+          <a href="https://open.spotify.com/episode/2ky1qRN15y0stwfW6xrarF" target="_blank" style="text-decoration:none">
+            <div class="ep-item"><div><div class="ep-title">The Future of AI in Real Estate & Dubai PropTech Revolution</div><div class="ep-num">Oct 2024 · 17 min</div></div><div class="ep-play"></div></div>
+          </a>
+          <a href="https://open.spotify.com/episode/04sXQhziDyTvu5RXaB5hs2" target="_blank" style="text-decoration:none">
+            <div class="ep-item"><div><div class="ep-title">Scaling a Real Estate Business in Dubai's Competitive Market | Abdullah Alajaji</div><div class="ep-num">Apr 2025 · 26 min</div></div><div class="ep-play"></div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section id="community" style="background:var(--black)">
+  <div class="section-inner">
+
+    <!-- Header -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:end;margin-bottom:4rem">
+      <div>
+        <div class="section-tag" style="color:var(--pink)">Join the Community</div>
+        <h2 class="section-title" style="color:#fff;margin-bottom:1rem">Where Awake People<br><em>Find Each Other</em></h2>
+        <p style="font-size:1rem;line-height:1.82;color:rgba(255,255,255,0.45)">The AWAKE community is where real estate professionals, CX leaders, and anyone serious about elevating their presence come together. Follow along, subscribe, and show up.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.6rem">
+        <div style="font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:0.4rem">Find Cecilia on</div>
+        <!-- Social handle cards -->
+        <a href="https://instagram.com/ceciliadxb" target="_blank" style="text-decoration:none;display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:0.85rem 1.1rem;transition:border-color 0.2s" onmouseover="this.style.borderColor='rgba(232,24,92,0.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e8185c" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="#e8185c" stroke="none"/></svg>
+          <div style="flex:1">
+            <div style="font-size:0.9rem;font-weight:500;color:#fff">@ceciliadxb</div>
+            <div style="font-size:0.72rem;color:rgba(255,255,255,0.35)">Instagram · 40K followers · Daily CX insights</div>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/cecilia-reinaldo-5b43742" target="_blank" style="text-decoration:none;display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:0.85rem 1.1rem;transition:border-color 0.2s" onmouseover="this.style.borderColor='rgba(232,24,92,0.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#e8185c"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <div style="flex:1">
+            <div style="font-size:0.9rem;font-weight:500;color:#fff">Cecilia Reinaldo</div>
+            <div style="font-size:0.72rem;color:rgba(255,255,255,0.35)">LinkedIn · Industry leadership and long-form insights</div>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+        <a href="https://open.spotify.com/show/01ql9GHXl9IL3XmavocY6o" target="_blank" style="text-decoration:none;display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:0.85rem 1.1rem;transition:border-color 0.2s" onmouseover="this.style.borderColor='rgba(232,24,92,0.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#e8185c"><circle cx="12" cy="12" r="10" fill="#e8185c"/><path d="M8 13.5c2.5-1 5.5-1 8 0M7 10.5c3-1.2 7-1.2 10 0M9 16.5c2-0.8 4-0.8 6 0" stroke="#fff" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+          <div style="flex:1">
+            <div style="font-size:0.9rem;font-weight:500;color:#fff">The Real Estate Majlis</div>
+            <div style="font-size:0.72rem;color:rgba(255,255,255,0.35)">Spotify Podcast · Co-hosted with Mahmoud Al Burai</div>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+        <a href="https://tiktok.com/@ceciliadxb" target="_blank" style="text-decoration:none;display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:0.85rem 1.1rem;transition:border-color 0.2s" onmouseover="this.style.borderColor='rgba(232,24,92,0.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#e8185c"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.05a8.16 8.16 0 0 0 4.77 1.52V7.12a4.85 4.85 0 0 1-1-.43z"/></svg>
+          <div style="flex:1">
+            <div style="font-size:0.9rem;font-weight:500;color:#fff">@ceciliadxb</div>
+            <div style="font-size:0.72rem;color:rgba(255,255,255,0.35)">TikTok · Short-form CX and sales content</div>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+        <a href="https://youtube.com/@ceciliadxb" target="_blank" style="text-decoration:none;display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:0.85rem 1.1rem;transition:border-color 0.2s" onmouseover="this.style.borderColor='rgba(232,24,92,0.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#e8185c"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/></svg>
+          <div style="flex:1">
+            <div style="font-size:0.9rem;font-weight:500;color:#fff">@ceciliadxb</div>
+            <div style="font-size:0.72rem;color:rgba(255,255,255,0.35)">YouTube · Long-form talks and masterclass clips</div>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Instagram feed placeholder -->
+    <div style="margin-bottom:4rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem">
+        <div style="font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.25)">Latest from @ceciliadxb</div>
+        <a href="https://instagram.com/ceciliadxb" target="_blank" style="font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--pink);text-decoration:none">View all on Instagram →</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px">
+        <div style="aspect-ratio:1;background:#1a1814;border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity 0.2s" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(255,255,255,0.12)" stroke="none"/></svg></div>
+        <div style="aspect-ratio:1;background:#14100e;border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity 0.2s" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(255,255,255,0.12)" stroke="none"/></svg></div>
+        <div style="aspect-ratio:1;background:#1a1018;border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity 0.2s" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(255,255,255,0.12)" stroke="none"/></svg></div>
+        <div style="aspect-ratio:1;background:#0e0c10;border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity 0.2s" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(255,255,255,0.12)" stroke="none"/></svg></div>
+        <div style="aspect-ratio:1;background:#10140e;border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity 0.2s" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(255,255,255,0.12)" stroke="none"/></svg></div>
+        <div style="aspect-ratio:1;background:#14100a;border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity 0.2s" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(255,255,255,0.12)" stroke="none"/></svg></div>
+      </div>
+      <p style="font-size:0.7rem;color:rgba(255,255,255,0.18);margin-top:0.75rem;text-align:center">Connect via Lightwidget or SnapWidget to embed your live Instagram feed here</p>
+    </div>
+
+    <!-- Community join -->
+    <div style="border-top:1px solid rgba(255,255,255,0.07);padding-top:4rem">
+      <div style="text-align:center;margin-bottom:3rem">
+        <div class="section-tag" style="color:var(--pink);justify-content:center">Join the AWAKE Community</div>
+        <h2 class="section-title" style="color:#fff;text-align:center">Two Ways to<br><em>Show Up</em></h2>
+        <p style="font-size:0.96rem;line-height:1.8;color:rgba(255,255,255,0.42);max-width:520px;margin:0 auto">Register for the newsletter and free playbook, or jump straight into the WhatsApp community. Both are free. Both are worth it.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+
+        <!-- Newsletter registration -->
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:2.5rem;display:flex;flex-direction:column">
+          <div style="font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:1.2rem">Newsletter and Free Playbook</div>
+          <h3 style="font-family:var(--serif);font-size:1.7rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:0.75rem">One email a week.<br>No noise. Just insight.</h3>
+          <p style="font-size:0.9rem;line-height:1.75;color:rgba(255,255,255,0.42);margin-bottom:1.8rem;flex:1">Register once and get the free AWAKE Method playbook instantly, plus a weekly email with one CX idea, one leadership reflection, and one thing worth knowing from the real estate world.</p>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:0.65rem;margin-bottom:2rem">
+            <li style="font-size:0.85rem;color:rgba(255,255,255,0.55);display:flex;gap:0.7rem;align-items:flex-start"><span style="color:var(--pink);flex-shrink:0">✓</span>Free AWAKE Method Intro Playbook — instant download</li>
+            <li style="font-size:0.85rem;color:rgba(255,255,255,0.55);display:flex;gap:0.7rem;align-items:flex-start"><span style="color:var(--pink);flex-shrink:0">✓</span>Weekly newsletter — short, honest, useful</li>
+            <li style="font-size:0.85rem;color:rgba(255,255,255,0.55);display:flex;gap:0.7rem;align-items:flex-start"><span style="color:var(--pink);flex-shrink:0">✓</span>Early access to podcast episodes</li>
+            <li style="font-size:0.85rem;color:rgba(255,255,255,0.55);display:flex;gap:0.7rem;align-items:flex-start"><span style="color:var(--pink);flex-shrink:0">✓</span>Monthly AWAKE challenge prompts</li>
+          </ul>
+          <div style="display:flex;flex-direction:column;gap:0.75rem">
+            <input id="comm-name" type="text" placeholder="Your first name" style="font-family:var(--sans);font-size:0.93rem;padding:0.9rem 1.1rem;border:1px solid rgba(255,255,255,0.12);border-radius:4px;background:rgba(255,255,255,0.05);color:#fff;outline:none;width:100%;transition:border-color 0.2s" onfocus="this.style.borderColor='rgba(232,24,92,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+            <input type="email" placeholder="Your email address" style="font-family:var(--sans);font-size:0.93rem;padding:0.9rem 1.1rem;border:1px solid rgba(255,255,255,0.12);border-radius:4px;background:rgba(255,255,255,0.05);color:#fff;outline:none;width:100%;transition:border-color 0.2s" onfocus="this.style.borderColor='rgba(232,24,92,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+            <button class="btn-primary" style="width:100%;padding:0.95rem;font-size:0.88rem">Register and Get the Playbook</button>
+          </div>
+          <p style="font-size:0.7rem;color:rgba(255,255,255,0.2);margin-top:0.75rem;text-align:center">No spam. Unsubscribe any time.</p>
+        </div>
+
+        <!-- WhatsApp community -->
+        <div style="background:rgba(37,211,102,0.06);border:1px solid rgba(37,211,102,0.2);border-radius:8px;padding:2.5rem;display:flex;flex-direction:column">
+          <div style="font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(37,211,102,0.8);margin-bottom:1.2rem">WhatsApp Community</div>
+          <div style="display:flex;align-items:center;gap:0.9rem;margin-bottom:1.5rem">
+            <div style="width:54px;height:54px;background:rgba(37,211,102,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </div>
+            <div>
+              <div style="font-family:var(--serif);font-size:1.5rem;font-weight:700;color:#fff;line-height:1.1">AWAKE Community</div>
+              <div style="font-size:0.72rem;color:rgba(255,255,255,0.3);margin-top:3px">Free to join · 400+ members</div>
+            </div>
+          </div>
+          <p style="font-size:0.92rem;line-height:1.78;color:rgba(255,255,255,0.48);margin-bottom:1.8rem;flex:1">The AWAKE WhatsApp Community is where the real conversations happen. Weekly messages from Cecilia, behind-the-scenes content, and a space to connect with professionals committed to showing up awake.</p>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:0.65rem;margin-bottom:2.5rem">
+            <li style="font-size:0.85rem;color:rgba(255,255,255,0.55);display:flex;gap:0.7rem;align-items:flex-start"><span style="color:#25D366;flex-shrink:0">✓</span>Weekly AWAKE Monday message from Cecilia</li>
+            <li style="font-size:0.85rem;color:rgba(255,255,255,0.55);display:flex;gap:0.7rem;align-items:flex-start"><span style="color:#25D366;flex-shrink:0">✓</span>Podcast drops and exclusive content first</li>
+            <li style="font-size:0.85rem;color:rgba(255,255,255,0.55);display:flex;gap:0.7rem;align-items:flex-start"><span style="color:#25D366;flex-shrink:0">✓</span>Real conversations with real professionals</li>
+            <li style="font-size:0.85rem;color:rgba(255,255,255,0.55);display:flex;gap:0.7rem;align-items:flex-start"><span style="color:#25D366;flex-shrink:0">✓</span>Event and masterclass announcements first</li>
+          </ul>
+          <a href="https://wa.me/971500000000?text=Hi+Cecilia!+I'd+love+to+join+the+AWAKE+Community." target="_blank" style="text-decoration:none;display:block;text-align:center;background:#25D366;color:#fff;padding:1rem 2rem;border-radius:2px;font-size:0.85rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">Join on WhatsApp</a>
+          <p style="font-size:0.68rem;color:rgba(255,255,255,0.18);text-align:center;margin-top:0.75rem">Replace the link with your WhatsApp group invite URL</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPEAKING -->
+<section class="speaking-section" id="speak">
+  <div class="section-inner">
+    <div class="section-tag">Work With Cecilia</div>
+    <h2 class="section-title">Bring the <em>AWAKE</em><br>Experience to Your Team</h2>
+    <p class="section-intro">Whether you need a keynote that moves an audience, a private masterclass for your top performers, or a full CX training programme Cecilia delivers every time.</p>
+    <div class="speaking-grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="speak-card"><div class="speak-icon">🎤</div><div class="speak-title">Keynote Speaking</div><div class="speak-desc">High-energy, story-driven keynotes on customer experience, sales leadership, and the AWAKE mindset. Tailored to your audience across real estate conferences, luxury hospitality summits, and corporate leadership events.</div></div>
+      <div class="speak-card"><div class="speak-icon">🎯</div><div class="speak-title">Private Masterclass</div><div class="speak-desc">Transformational half-day or full-day workshops for teams ready to elevate their game. Covering the AWAKE Method 2.0 framework, the 5-channel touchpoint standard, and practical tools your team applies from day one.</div></div>
+      <div class="speak-card"><div class="speak-icon">✦</div><div class="speak-title">Corporate CX Training</div><div class="speak-desc">Structured programmes for organisations. Cecilia works with leadership and front-line teams to embed the AWAKE principles into everyday behavior and measure the transformation over time.</div></div>
+      <div class="speak-card" style="border-color:var(--pink);border-width:1.5px"><div class="speak-icon" style="background:var(--pink);font-size:1rem">✱</div><div class="speak-title">Brand Collaboration</div><div class="speak-desc">Brands and businesses looking to co-create content, partner on social campaigns, or align with the AWAKE Method community are welcome to reach out. Let's build something that matters together.</div><a href="#contact" style="display:inline-block;margin-top:1.2rem;font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--pink);text-decoration:none">Get in touch</a></div>
+    </div>
+    <div class="speak-form-wrap" id="contact">
+      <div class="section-tag" style="margin-bottom:1.5rem">Send an Enquiry</div>
+      <h3 style="font-family:var(--serif);font-size:1.7rem;margin-bottom:0.5rem">Let's Make Something <em style="color:var(--pink)">Remarkable</em></h3>
+      <p style="color:var(--mid-gray);font-size:0.86rem;margin-bottom:2rem">Fill in the form and Cecilia's team will get back to you within 48 hours.</p>
+      <form onsubmit="return false">
+        <div class="form-grid">
+          <div class="form-group"><label>First Name</label><input type="text" placeholder="Yasmin"></div>
+          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Al-Rashidi"></div>
+          <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@company.com"></div>
+          <div class="form-group"><label>Phone / WhatsApp</label><input type="tel" placeholder="+971 50 000 0000"></div>
+          <div class="form-group"><label>Company / Organisation</label><input type="text" placeholder="Company Name"></div>
+          <div class="form-group"><label>Type of Enquiry</label>
+            <select><option value="">Select...</option><option>Keynote Speaking</option><option>Private Masterclass</option><option>Corporate CX Training</option><option>Brand Collaboration</option><option>Podcast Collaboration</option><option>Other</option></select>
+          </div>
+          <div class="form-group full"><label>Tell us about your event or brief</label><textarea placeholder="Share a bit about the event, your team, and what you're hoping to achieve..."></textarea></div>
+        </div>
+        <button type="submit" class="btn-primary">Send Enquiry →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo-wrap">
+          <span class="f-aw">AW</span><span class="f-ake">AKE</span>
+          <span class="f-sub">Method<br>by Cecilia Reinaldo</span>
+        </div>
+        <p>Presence Is the Product. Cecilia Reinaldo helps leaders, sales teams, and organisations wake up to their full potential through the AWAKE Method.</p>
+        <div style="margin-top:1.6rem;display:flex;flex-direction:column;gap:0.6rem">
+          <a href="https://instagram.com/ceciliadxb" target="_blank" style="display:flex;align-items:center;gap:0.6rem;color:rgba(255,255,255,0.38);text-decoration:none;font-size:0.82rem;transition:color 0.2s" onmouseover="this.style.color='#e8185c'" onmouseout="this.style.color='rgba(255,255,255,0.38)'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+            @ceciliadxb
+          </a>
+          <a href="https://linkedin.com/in/cecilia-reinaldo-5b43742" target="_blank" style="display:flex;align-items:center;gap:0.6rem;color:rgba(255,255,255,0.38);text-decoration:none;font-size:0.82rem;transition:color 0.2s" onmouseover="this.style.color='#e8185c'" onmouseout="this.style.color='rgba(255,255,255,0.38)'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            Cecilia Reinaldo on LinkedIn
+          </a>
+          <a href="https://tiktok.com/@ceciliadxb" target="_blank" style="display:flex;align-items:center;gap:0.6rem;color:rgba(255,255,255,0.38);text-decoration:none;font-size:0.82rem;transition:color 0.2s" onmouseover="this.style.color='#e8185c'" onmouseout="this.style.color='rgba(255,255,255,0.38)'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-6.13 6.29 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.05a8.16 8.16 0 0 0 4.77 1.52V7.12a4.85 4.85 0 0 1-1-.43z"/></svg>
+            @ceciliadxb on TikTok
+          </a>
+          <a href="https://youtube.com/@ceciliadxb" target="_blank" style="display:flex;align-items:center;gap:0.6rem;color:rgba(255,255,255,0.38);text-decoration:none;font-size:0.82rem;transition:color 0.2s" onmouseover="this.style.color='#e8185c'" onmouseout="this.style.color='rgba(255,255,255,0.38)'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+            @ceciliadxb on YouTube
+          </a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Method</h4><ul><li><a href="#method">10 CX Foundations</a></li><li><a href="#voice">5 Touchpoints</a></li><li><a href="#voice">Smile in Your Voice</a></li><li><a href="#playbook">Free Playbook</a></li></ul></div>
+      <div class="footer-col"><h4>Community</h4><ul><li><a href="#community">Join Free</a></li><li><a href="#community">Newsletter</a></li><li><a href="#community">WhatsApp Group</a></li></ul></div>
+      <div class="footer-col"><h4>Work With Me</h4><ul><li><a href="#speak">Keynote Speaking</a></li><li><a href="#speak">Private Masterclass</a></li><li><a href="#speak">Corporate Training</a></li><li><a href="#speak">Brand Collaboration</a></li><li><a href="#contact">Get in Touch</a></li></ul></div>
+      <div class="footer-col"><h4>Listen</h4><ul><li><a href="#podcast">The Real Estate Majlis</a></li><li><a href="https://open.spotify.com/show/01ql9GHXl9IL3XmavocY6o" target="_blank">Spotify</a></li><li><a href="https://podcasts.apple.com" target="_blank">Apple Podcasts</a></li><li><a href="https://instagram.com/ceciliadxb" target="_blank">Instagram</a></li><li><a href="https://youtube.com/@ceciliadxb" target="_blank">YouTube</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Cecilia Reinaldo · The AWAKE Method™</span>
+      <span>Dubai, UAE · awake-method.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+function switchTab(i){
+  document.querySelectorAll('.touch-tab').forEach((t,j)=>t.classList.toggle('active',i===j));
+  document.querySelectorAll('.touch-panel').forEach((p,j)=>p.classList.toggle('active',i===j));
+}
+</script>
+</body>
+</html>
