@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/server";
 import { validateRequest, sanitizeString, isValidEmail } from "@/lib/api-utils";
+import { sendAlert } from "@/lib/email";
 
 const ALLOWED_SERVICE_TYPES = [
   "keynote",
@@ -114,6 +115,19 @@ export async function POST(request: Request) {
         services: [serviceType],
       });
     }
+
+    sendAlert(
+      `New Enquiry: ${serviceType} — ${name}`,
+      `<h2>New Enquiry Received</h2>
+       <table style="border-collapse:collapse;font-family:sans-serif">
+         <tr><td style="padding:4px 12px 4px 0;color:#888">Name</td><td>${name}</td></tr>
+         <tr><td style="padding:4px 12px 4px 0;color:#888">Email</td><td>${email}</td></tr>
+         <tr><td style="padding:4px 12px 4px 0;color:#888">Phone</td><td>${phone || "—"}</td></tr>
+         <tr><td style="padding:4px 12px 4px 0;color:#888">Company</td><td>${company || "—"}</td></tr>
+         <tr><td style="padding:4px 12px 4px 0;color:#888">Service</td><td>${serviceType}</td></tr>
+         <tr><td style="padding:4px 12px 4px 0;color:#888">Message</td><td>${message || "—"}</td></tr>
+       </table>`
+    );
 
     return NextResponse.json({ success: true });
   } catch {

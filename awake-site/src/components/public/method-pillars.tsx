@@ -134,7 +134,7 @@ export default function MethodPillars() {
   );
 
   return (
-    <section id="method" className="bg-[#0a0a0a] py-24 sm:py-32 px-[5vw]">
+    <section id="method" className="bg-[#0a0a0a] py-12 sm:py-16 lg:py-20 px-[5vw]">
       <div className="max-w-[1200px] mx-auto" onMouseEnter={() => (paused.current = true)} onMouseLeave={() => (paused.current = false)}>
         {/* Header */}
         <div className="text-center mb-16 sm:mb-20">

@@ -37,7 +37,7 @@ const episodes = [
 
 export default function PodcastSection() {
   return (
-    <section className="bg-[#0a0a0a] text-white px-[5vw] py-14 sm:py-20 lg:py-[100px]" id="podcast">
+    <section className="bg-[#0a0a0a] text-white px-[5vw] py-12 sm:py-16 lg:py-20" id="podcast">
       <div className="max-w-[1200px] mx-auto">
         <div className="flex items-center gap-3 text-[0.7rem] font-medium tracking-[0.18em] uppercase text-pink mb-4">
           <span className="w-6 h-px bg-pink" />
@@ -52,8 +52,7 @@ export default function PodcastSection() {
           {/* Left — info + art */}
           <div>
             <p className="text-[0.94rem] leading-[1.87] text-white/44 mb-3">
-              Hosted by Mahmoud Al Burai and Cecilia Reinaldo, brought to you by
-              Thinkprop Institute. Wide-ranging conversations on UAE real estate
+              Hosted by Mahmoud Al Burai and Cecilia Reinaldo. Wide-ranging conversations on UAE real estate
               market trends, investment, leadership, and what it truly takes to
               perform at the highest level.
             </p>

@@ -175,7 +175,7 @@ export default function Speaking() {
     "font-sans text-base sm:text-[0.94rem] px-4 py-3.5 border border-white/[0.1] rounded-sm bg-white/[0.05] text-white outline-none focus:border-pink transition-colors w-full placeholder:text-white/25";
 
   return (
-    <section className="bg-[#0a0a0a] px-[5vw] py-14 sm:py-20 lg:py-[100px]" id="speak">
+    <section className="bg-[#0a0a0a] px-[5vw] py-12 sm:py-16 lg:py-20" id="speak">
       <div className="max-w-[1200px] mx-auto">
         <div className="flex items-center gap-3 text-[0.7rem] font-medium tracking-[0.18em] uppercase text-pink mb-4">
           <span className="w-6 h-px bg-pink" />

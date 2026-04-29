@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/server";
 import { validateRequest, sanitizeString, isValidEmail } from "@/lib/api-utils";
+import { sendAlert } from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
@@ -77,6 +78,15 @@ export async function POST(request: Request) {
         services: ["newsletter"],
       });
     }
+
+    sendAlert(
+      `New Newsletter Signup — ${name}`,
+      `<h2>New Newsletter Subscriber</h2>
+       <table style="border-collapse:collapse;font-family:sans-serif">
+         <tr><td style="padding:4px 12px 4px 0;color:#888">Name</td><td>${name}</td></tr>
+         <tr><td style="padding:4px 12px 4px 0;color:#888">Email</td><td>${email}</td></tr>
+       </table>`
+    );
 
     return NextResponse.json({ success: true });
   } catch {

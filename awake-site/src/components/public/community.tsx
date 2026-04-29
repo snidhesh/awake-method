@@ -87,7 +87,7 @@ export default function Community() {
   };
 
   return (
-    <section className="bg-[#0a0a0a] text-white px-[5vw] py-14 sm:py-20 lg:py-[100px]" id="community">
+    <section className="bg-[#0a0a0a] text-white px-[5vw] py-12 sm:py-16 lg:py-20" id="community">
       <div className="max-w-[1200px] mx-auto">
         {/* Header */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-end mb-12 sm:mb-16">

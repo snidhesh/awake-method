@@ -155,7 +155,7 @@ export default function Touchpoints() {
   return (
     <section
       id="voice"
-      className="bg-[#0a0a0a] text-white py-14 sm:py-20 lg:py-24 px-[5vw]"
+      className="bg-[#0a0a0a] text-white py-12 sm:py-16 lg:py-20 px-[5vw]"
     >
       <div className="max-w-[1200px] mx-auto">
         {/* Header */}
