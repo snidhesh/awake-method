@@ -57,7 +57,7 @@ export default function PodcastSection() {
               perform at the highest level.
             </p>
             <p className="text-[0.82rem] text-white/25 mb-8">
-              Powered by Bayut — UAE&apos;s largest real estate portal.
+              Powered by Bayut, UAE&apos;s largest real estate portal.
             </p>
             <div className="flex gap-4 flex-wrap mb-10">
               <a

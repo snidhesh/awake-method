@@ -52,7 +52,7 @@ export default function PlaybookForm() {
             </h2>
             <p className="text-base leading-[1.85] text-white/50 mb-6">
               Register your name and email and receive the foundational AWAKE
-              Method guide — a practical introduction to the 10 Foundations of
+              Method guide, a practical introduction to the 10 Foundations of
               Customer Experience Excellence with real tools you can use
               immediately.
             </p>

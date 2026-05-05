@@ -14,6 +14,10 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://awake-method.com"),
+  alternates: {
+    canonical: "/",
+  },
   title: {
     default: "The AWAKE Method — Cecilia Reinaldo",
     template: "%s | AWAKE Method",

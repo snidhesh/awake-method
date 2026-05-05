@@ -36,7 +36,7 @@ export default function About() {
               She created the AWAKE Method after watching talented professionals
               chase success while disconnected from their purpose, their clients,
               and themselves. Her work bridges hospitality intelligence and sales
-              performance &mdash; proving the discipline behind exceptional
+              performance, proving the discipline behind exceptional
               service is the same engine that drives loyalty, conversion, and
               growth.
             </p>
@@ -61,15 +61,15 @@ export default function About() {
             </div>
 
             <p className="text-[0.78rem] tracking-[0.1em] uppercase text-white/25 mb-8">
-              &mdash; Cecilia Reinaldo, The AWAKE Method
+              Cecilia Reinaldo, The AWAKE Method
             </p>
 
             <p className="text-[0.9rem] leading-[1.87] text-white/[0.48]">
               Inspired by thought leaders like Bren&eacute; Brown and Mel
               Robbins, Cecilia brings raw authenticity and practical frameworks
-              together &mdash; tools that don&apos;t just inspire but transform.
+              together. Tools that don&apos;t just inspire but transform.
               Her work is rooted in a single belief: awareness is where
-              everything begins &mdash; your clarity, your energy, your results.
+              everything begins: your clarity, your energy, your results.
             </p>
           </div>
         </div>

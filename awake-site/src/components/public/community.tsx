@@ -182,8 +182,8 @@ export default function Community() {
               </p>
               <ul className="flex flex-col gap-2.5 mb-8">
                 {[
-                  "Free AWAKE Method Intro Playbook — instant download",
-                  "Weekly newsletter — short, honest, useful",
+                  "Free AWAKE Method Intro Playbook, instant download",
+                  "Weekly newsletter, short, honest, useful",
                   "Early access to podcast episodes",
                   "Monthly AWAKE challenge prompts",
                 ].map((item) => (

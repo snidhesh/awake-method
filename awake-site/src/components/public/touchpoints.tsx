@@ -40,7 +40,7 @@ const touchpoints = [
     name: "Walk-In",
     tag: "The Ultimate Moment of Truth",
     description:
-      "How you stand, how you offer a seat, whether you walk them to the door — this is where brand becomes experience. Every physical interaction is an audition for loyalty.",
+      "How you stand, how you offer a seat, whether you walk them to the door. This is where brand becomes experience. Every physical interaction is an audition for loyalty.",
     image: "/channel-walkin.jpg",
   },
 ];
@@ -173,7 +173,7 @@ export default function Touchpoints() {
 
           <p className="text-[1.03rem] leading-[1.82] text-white/60">
             Your brand doesn&apos;t live in your logo. It lives in every
-            interaction — every call answered, every message sent, every door
+            interaction: every call answered, every message sent, every door
             held open. These are the five channels where experience is won or
             lost.
           </p>
