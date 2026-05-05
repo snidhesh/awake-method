@@ -48,7 +48,7 @@ export async function POST(request: Request) {
       formData.append("name", name);
       formData.append("email", email);
       formData.append("phone", "");
-      formData.append("source", "newsletter");
+      formData.append("source", "playbook");
       try {
         await fetch(sheetUrl, { method: "POST", body: formData });
       } catch (sheetErr) {

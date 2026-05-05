@@ -32,12 +32,26 @@ function YoutubeIcon({ className }: { className?: string }) {
   );
 }
 
+function TiktokIcon({ className }: { className?: string }) {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.16 8.16 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z" />
+    </svg>
+  );
+}
+
 const socials = [
   {
     icon: InstagramIcon,
     name: "@ceciliadxb",
     desc: "Instagram · 40K followers · Daily CX insights",
     href: "https://instagram.com/ceciliadxb",
+  },
+  {
+    icon: TiktokIcon,
+    name: "@ceciliareinaldo",
+    desc: "TikTok · Short-form CX and sales tips",
+    href: "https://www.tiktok.com/@ceciliareinaldo",
   },
   {
     icon: LinkedinIcon,
@@ -185,8 +199,19 @@ export default function Community() {
 
               {nlSubmitted ? (
                 <div className="text-center py-6">
-                  <p className="text-pink font-medium">
-                    You&apos;re in! Check your email for the playbook.
+                  <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-pink/10 border border-pink/20 flex items-center justify-center">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e8185c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </div>
+                  <div className="font-serif text-[1.4rem] font-bold text-white mb-2">
+                    Thank You for Subscribing!
+                  </div>
+                  <p className="text-white/50 text-[0.88rem] leading-[1.7] mb-3">
+                    A link to the <span className="text-pink font-medium">AWAKE Sales Playbook</span> has been sent to your email.
+                  </p>
+                  <p className="text-white/25 text-[0.75rem]">
+                    Didn&apos;t receive it? Check your spam or promotions folder.
                   </p>
                 </div>
               ) : (
@@ -212,9 +237,10 @@ export default function Community() {
                   />
                   <button
                     type="submit"
-                    className="w-full bg-pink text-white py-4 rounded-sm text-[0.88rem] font-medium tracking-[0.06em] uppercase hover:bg-pink-light transition-colors cursor-pointer"
+                    disabled={nlLoading}
+                    className="w-full bg-pink text-white py-4 rounded-sm text-[0.88rem] font-medium tracking-[0.06em] uppercase hover:bg-pink-light transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    Register and Get the Playbook
+                    {nlLoading ? "Registering..." : "Register and Get the Playbook"}
                   </button>
                 </form>
               )}
@@ -229,7 +255,18 @@ export default function Community() {
             </div>
 
             {/* WhatsApp */}
-            <div className="bg-[#25D366]/[0.04] border border-[#25D366]/[0.15] rounded-lg p-6 sm:p-10 flex flex-col">
+            <div className="relative bg-[#25D366]/[0.04] border border-[#25D366]/[0.15] rounded-lg p-6 sm:p-10 flex flex-col overflow-hidden">
+              {/* Blur overlay with Coming Soon */}
+              <div className="absolute inset-0 z-10 backdrop-blur-[6px] bg-black/40 flex flex-col items-center justify-center rounded-lg">
+                <div className="w-14 h-14 mb-4 rounded-full bg-[#25D366]/10 border border-[#25D366]/20 flex items-center justify-center">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#25D366" strokeWidth="1.5">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                  </svg>
+                </div>
+                <div className="font-serif text-[1.4rem] font-bold text-white mb-1">Coming Soon</div>
+                <p className="text-white/40 text-[0.85rem]">WhatsApp Community launching soon</p>
+              </div>
+
               <div className="text-[0.68rem] tracking-[0.2em] uppercase text-[#25D366]/80 mb-5">
                 WhatsApp Community
               </div>
@@ -277,17 +314,9 @@ export default function Community() {
                   </li>
                 ))}
               </ul>
-              <a
-                href="#community"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-center bg-[#25D366] text-white py-4 px-8 rounded-sm text-[0.85rem] font-medium tracking-[0.08em] uppercase hover:opacity-88 transition-opacity"
-              >
+              <div className="block text-center bg-[#25D366] text-white py-4 px-8 rounded-sm text-[0.85rem] font-medium tracking-[0.08em] uppercase opacity-50">
                 Join on WhatsApp
-              </a>
-              <p className="text-[0.68rem] text-white/18 text-center mt-3">
-                WhatsApp invite link coming soon
-              </p>
+              </div>
             </div>
           </div>
         </div>

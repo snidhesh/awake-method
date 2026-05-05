@@ -82,11 +82,19 @@ export default function PlaybookForm() {
           <div className="bg-white/[0.03] border border-white/[0.06] rounded-md p-6 sm:p-10">
             {submitted ? (
               <div className="text-center py-8">
-                <div className="font-serif text-[2rem] font-black text-pink mb-2">
-                  Check Your Email!
+                <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-pink/10 border border-pink/20 flex items-center justify-center">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e8185c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
                 </div>
-                <p className="text-white/50 text-[0.9rem]">
-                  Your free AWAKE Method playbook is on its way.
+                <div className="font-serif text-[1.8rem] font-black text-white mb-2">
+                  Thank You!
+                </div>
+                <p className="text-white/55 text-[0.95rem] leading-[1.7] mb-4">
+                  A link to the <span className="text-pink font-medium">AWAKE Sales Playbook</span> has been sent to your email.
+                </p>
+                <p className="text-white/30 text-[0.78rem]">
+                  Didn&apos;t receive it? Check your spam or promotions folder.
                 </p>
               </div>
             ) : (

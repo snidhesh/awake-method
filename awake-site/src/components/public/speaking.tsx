@@ -250,11 +250,17 @@ export default function Speaking() {
 
           {submitted ? (
             <div className="text-center py-8">
-              <div className="font-serif text-[1.5rem] font-bold text-pink mb-2">
-                Enquiry Sent!
+              <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-pink/10 border border-pink/20 flex items-center justify-center">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e8185c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
               </div>
-              <p className="text-white/50">
-                We&apos;ll get back to you within 48 hours.
+              <div className="font-serif text-[1.5rem] font-bold text-white mb-2">
+                Thank You for Your Enquiry!
+              </div>
+              <p className="text-white/50 text-[0.92rem] leading-[1.7] mb-3">
+                A confirmation has been sent to your email.<br />
+                Cecilia&apos;s team will get back to you within 48 hours.
               </p>
             </div>
           ) : (
