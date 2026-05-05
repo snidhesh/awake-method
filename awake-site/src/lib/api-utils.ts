@@ -69,6 +69,8 @@ export async function validateRequest(
   const origin = request.headers.get("origin");
   const allowedOrigins = [
     process.env.NEXT_PUBLIC_SITE_URL,
+    "https://awake-method.com",
+    "https://www.awake-method.com",
     "http://localhost:3000",
     "http://localhost:3001",
   ].filter(Boolean);
