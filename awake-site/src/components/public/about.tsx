@@ -9,9 +9,9 @@ const pills = [
 
 export default function About() {
   return (
-    <section id="about" className="bg-[#0a0a0a] text-white py-12 sm:py-16 lg:py-20 px-[5vw] border-t border-white/[0.04]">
+    <section id="about" className="bg-[#0a0a0a] text-white py-16 sm:py-20 lg:py-24 px-[7vw] sm:px-[5vw] border-t border-white/[0.04]">
       <div className="max-w-[1200px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 xl:gap-24 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-24 items-center">
           {/* Left column */}
           <div>
             <div className="flex items-center gap-3 text-[0.7rem] font-medium tracking-[0.18em] uppercase text-pink mb-4">
@@ -55,12 +55,12 @@ export default function About() {
 
           {/* Right column */}
           <div>
-            <div className="font-serif text-[1.5rem] sm:text-[1.8rem] italic leading-[1.5] text-white border-l-[3px] border-pink pl-4 sm:pl-6 mb-6" style={{ textShadow: '0 0 40px rgba(232, 24, 92, 0.2)' }}>
+            <div className="font-serif text-[1.5rem] sm:text-[1.8rem] italic leading-[1.5] text-white border-l-[3px] border-pink pl-5 sm:pl-6 mb-6 py-2" style={{ textShadow: '0 0 40px rgba(232, 24, 92, 0.2)' }}>
               &ldquo;You can&apos;t sell what you don&apos;t feel. You
               can&apos;t lead what you don&apos;t live.&rdquo;
             </div>
 
-            <p className="text-[0.78rem] tracking-[0.1em] uppercase text-white/25 mb-8">
+            <p className="text-[0.78rem] tracking-[0.1em] uppercase text-white/25 mb-10">
               Cecilia Reinaldo, The AWAKE Method
             </p>
 

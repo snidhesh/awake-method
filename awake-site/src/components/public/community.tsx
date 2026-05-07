@@ -101,7 +101,7 @@ export default function Community() {
   };
 
   return (
-    <section className="bg-[#0a0a0a] text-white px-[5vw] py-12 sm:py-16 lg:py-20" id="community">
+    <section className="bg-[#080807] text-white px-[7vw] sm:px-[5vw] py-16 sm:py-20 lg:py-24" id="community">
       <div className="max-w-[1200px] mx-auto">
         {/* Header */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-end mb-12 sm:mb-16">
@@ -123,7 +123,7 @@ export default function Community() {
           </div>
 
           {/* Social links */}
-          <div className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-3">
             <div className="text-[0.68rem] tracking-[0.2em] uppercase text-white/25 mb-1">
               Find Cecilia on
             </div>
@@ -133,7 +133,7 @@ export default function Community() {
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 bg-white/[0.03] border border-white/[0.06] rounded-md px-4 py-4 hover:border-pink/50 transition-colors"
+                className="flex items-center gap-4 bg-white/[0.03] border border-white/[0.06] rounded-md px-5 py-4 hover:border-pink/50 transition-colors"
               >
                 <s.icon className="text-pink shrink-0" />
                 <div className="flex-1">
@@ -149,8 +149,8 @@ export default function Community() {
         </div>
 
         {/* Two ways to show up */}
-        <div className="border-t border-white/7 pt-12 sm:pt-16">
-          <div className="text-center mb-10 sm:mb-12">
+        <div className="border-t border-white/7 pt-14 sm:pt-16">
+          <div className="text-center mb-12 sm:mb-14">
             <div className="flex items-center gap-3 text-[0.7rem] font-medium tracking-[0.18em] uppercase text-pink mb-4 justify-center">
               <span className="w-6 h-px bg-pink" />
               Join the AWAKE Community

@@ -104,7 +104,7 @@ function CompactCard({
   return (
     <button
       onClick={onClick}
-      className="relative w-full text-left rounded-xl p-4 sm:p-5 cursor-pointer group
+      className="relative w-full text-left rounded-xl p-5 sm:p-5 cursor-pointer group
                  bg-white/[0.02] backdrop-blur-sm
                  border border-white/[0.06]
                  hover:border-pink/30 hover:bg-white/[0.04]
@@ -155,7 +155,7 @@ export default function Touchpoints() {
   return (
     <section
       id="voice"
-      className="bg-[#0a0a0a] text-white py-12 sm:py-16 lg:py-20 px-[5vw]"
+      className="bg-[#0a0a0a] text-white py-16 sm:py-20 lg:py-24 px-[7vw] sm:px-[5vw]"
     >
       <div className="max-w-[1200px] mx-auto">
         {/* Header */}

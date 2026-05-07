@@ -175,7 +175,7 @@ export default function Speaking() {
     "font-sans text-base sm:text-[0.94rem] px-4 py-3.5 border border-white/[0.1] rounded-sm bg-white/[0.05] text-white outline-none focus:border-pink transition-colors w-full placeholder:text-white/25";
 
   return (
-    <section className="bg-[#0a0a0a] px-[5vw] py-12 sm:py-16 lg:py-20" id="speak">
+    <section className="bg-[#0a0a0a] px-[7vw] sm:px-[5vw] py-16 sm:py-20 lg:py-24" id="speak">
       <div className="max-w-[1200px] mx-auto">
         <div className="flex items-center gap-3 text-[0.7rem] font-medium tracking-[0.18em] uppercase text-pink mb-4">
           <span className="w-6 h-px bg-pink" />
@@ -232,7 +232,7 @@ export default function Speaking() {
 
         {/* Enquiry form */}
         <div
-          className="mt-16 bg-white/[0.03] border border-white/[0.06] rounded-sm p-5 sm:p-8 lg:p-12"
+          className="mt-16 bg-white/[0.03] border border-white/[0.06] rounded-sm p-6 sm:p-8 lg:p-12"
           id="contact"
         >
           <div className="flex items-center gap-3 text-[0.7rem] font-medium tracking-[0.18em] uppercase text-pink mb-6">
@@ -336,15 +336,16 @@ export default function Speaking() {
                     <select
                       value={formData.serviceType}
                       onChange={(e) => updateField("serviceType", e.target.value)}
-                      className={`${inputClasses} appearance-none pr-10 [&>option]:bg-[#141210] [&>option]:text-white [&>option]:py-2`}
+                      className={`${inputClasses} appearance-none pr-10`}
+                      style={{ color: formData.serviceType ? '#ffffff' : 'rgba(255,255,255,0.25)' }}
                     >
-                      <option value="">Select...</option>
-                      <option>Keynote Speaking</option>
-                      <option>Private Masterclass</option>
-                      <option>Corporate CX Training</option>
-                      <option>Brand Collaboration</option>
-                      <option>Podcast Collaboration</option>
-                      <option>Other</option>
+                      <option value="" disabled className="bg-[#141210] text-white/40">Select...</option>
+                      <option className="bg-[#141210] text-white" value="Keynote Speaking">Keynote Speaking</option>
+                      <option className="bg-[#141210] text-white" value="Private Masterclass">Private Masterclass</option>
+                      <option className="bg-[#141210] text-white" value="Corporate CX Training">Corporate CX Training</option>
+                      <option className="bg-[#141210] text-white" value="Brand Collaboration">Brand Collaboration</option>
+                      <option className="bg-[#141210] text-white" value="Podcast Collaboration">Podcast Collaboration</option>
+                      <option className="bg-[#141210] text-white" value="Other">Other</option>
                     </select>
                     <svg className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-white/30" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="6 9 12 15 18 9" />
