@@ -1,22 +1,22 @@
-import { fetchEpisodes, type Episode } from "@/lib/spotify";
+import { fetchEpisodes, type Episode } from "@/lib/podcast";
 
 const FALLBACK_EPISODES: Episode[] = [
   {
     title:
-      "Scaling a Real Estate Business in Dubai's Competitive Market | Abdullah Alajaji",
-    date: "Apr 2025 · 26 min",
-    url: "https://open.spotify.com/episode/04sXQhziDyTvu5RXaB5hs2",
+      "How To Build a Winning Real Estate Brokerage with Ayman Youssef from Coldwell Banker UAE",
+    date: "May 2026 · 18 min",
+    url: "https://www.buzzsprout.com/2240775/episodes/19175256-how-to-build-a-winning-real-estate-brokerage-with-ayman-youssef-from-coldwell-banker-uae",
   },
   {
-    title: "The TikTok Lawyer Breaks Down UAE Real Estate Law | Arash Zad",
-    date: "Mar 2025 · 32 min",
-    url: "https://open.spotify.com/episode/3kiBVOhaOTExCZggVPlOiK",
+    title: "What Powers Dubizzle’s Success in UAE Real Estate",
+    date: "May 2026 · 23 min",
+    url: "https://www.buzzsprout.com/2240775/episodes/19175254-what-powers-dubizzle-s-success-in-uae-real-estate",
   },
   {
     title:
-      "Dubai Commercial Real Estate: What's Really Driving the Market? | Behnam Bargh",
-    date: "Jan 2025 · 17 min",
-    url: "https://open.spotify.com/episode/6XqkIlFELHZEO3selC7p34",
+      "The TikTok Lawyer Breaks Down UAE Real Estate Law | Arash Zad Is Back!",
+    date: "Mar 2026 · 32 min",
+    url: "https://www.buzzsprout.com/2240775/episodes/18777696-the-tiktok-lawyer-breaks-down-uae-real-estate-law-arash-zad-is-back",
   },
 ];
 
@@ -25,7 +25,7 @@ export default async function PodcastSection() {
   try {
     episodes = await fetchEpisodes(6);
   } catch (err) {
-    console.error("Spotify fetch failed, using fallback:", err);
+    console.error("Podcast RSS fetch failed, using fallback:", err);
     episodes = FALLBACK_EPISODES;
   }
   return (
