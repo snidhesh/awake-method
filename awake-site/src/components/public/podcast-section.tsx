@@ -1,4 +1,12 @@
-const episodes = [
+import { fetchEpisodes, type Episode } from "@/lib/spotify";
+
+const FALLBACK_EPISODES: Episode[] = [
+  {
+    title:
+      "Scaling a Real Estate Business in Dubai's Competitive Market | Abdullah Alajaji",
+    date: "Apr 2025 · 26 min",
+    url: "https://open.spotify.com/episode/04sXQhziDyTvu5RXaB5hs2",
+  },
   {
     title: "The TikTok Lawyer Breaks Down UAE Real Estate Law | Arash Zad",
     date: "Mar 2025 · 32 min",
@@ -10,32 +18,16 @@ const episodes = [
     date: "Jan 2025 · 17 min",
     url: "https://open.spotify.com/episode/6XqkIlFELHZEO3selC7p34",
   },
-  {
-    title:
-      "How Smart Investors Win in UAE Real Estate | Dr. Mohanad Alwadiya",
-    date: "Dec 2024 · 32 min",
-    url: "https://open.spotify.com/episode/2jSfGfTkiUA4cglkJrwfBr",
-  },
-  {
-    title:
-      "Inside Million Dollar Listing UAE Season 2 | Ben Bandari & Sarah Serhan",
-    date: "Nov 2024 · 29 min",
-    url: "https://open.spotify.com/episode/5RfGFs3f5sNwRXEEfxJVpG",
-  },
-  {
-    title: "The Future of AI in Real Estate & Dubai PropTech Revolution",
-    date: "Oct 2024 · 17 min",
-    url: "https://open.spotify.com/episode/2ky1qRN15y0stwfW6xrarF",
-  },
-  {
-    title:
-      "Scaling a Real Estate Business in Dubai's Competitive Market | Abdullah Alajaji",
-    date: "Apr 2025 · 26 min",
-    url: "https://open.spotify.com/episode/04sXQhziDyTvu5RXaB5hs2",
-  },
 ];
 
-export default function PodcastSection() {
+export default async function PodcastSection() {
+  let episodes: Episode[];
+  try {
+    episodes = await fetchEpisodes(6);
+  } catch (err) {
+    console.error("Spotify fetch failed, using fallback:", err);
+    episodes = FALLBACK_EPISODES;
+  }
   return (
     <section className="bg-[#0a0a0a] text-white px-[7vw] sm:px-[5vw] py-16 sm:py-20 lg:py-24" id="podcast">
       <div className="max-w-[1200px] mx-auto">

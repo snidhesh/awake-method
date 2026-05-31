@@ -8,6 +8,8 @@ import PodcastSection from "@/components/public/podcast-section";
 import Community from "@/components/public/community";
 import Speaking from "@/components/public/speaking";
 
+export const revalidate = 3600;
+
 export default function HomePage() {
   return (
     <>

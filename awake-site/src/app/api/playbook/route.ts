@@ -3,6 +3,8 @@ import { createServiceClient } from "@/lib/supabase/server";
 import { validateRequest, sanitizeString, isValidEmail } from "@/lib/api-utils";
 import { sendAlert } from "@/lib/email";
 
+const SUPABASE_CONFIG_ERR = "Missing Supabase service role environment variables";
+
 export async function POST(request: Request) {
   try {
     const result = await validateRequest(request);
@@ -34,9 +36,14 @@ export async function POST(request: Request) {
       .upsert({ name, email, source: "playbook" }, { onConflict: "email" });
 
     if (nlError) {
-      console.error("Playbook signup failed:", nlError.code);
+      console.error("Playbook signup failed:", {
+        code: nlError.code,
+        message: nlError.message,
+        details: nlError.details,
+        hint: nlError.hint,
+      });
       return NextResponse.json(
-        { error: "Failed to register" },
+        { error: "Failed to register", reason: "SUPABASE_ERROR", code: nlError.code },
         { status: 500 }
       );
     }
@@ -89,9 +96,14 @@ export async function POST(request: Request) {
     );
 
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (err) {
+    console.error("Playbook route exception:", err);
+    const reason =
+      err instanceof Error && err.message === SUPABASE_CONFIG_ERR
+        ? "SUPABASE_CONFIG_MISSING"
+        : "ROUTE_EXCEPTION";
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: "Internal server error", reason },
       { status: 500 }
     );
   }
