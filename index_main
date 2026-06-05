@@ -287,6 +287,8 @@
 </style>
   <!-- Google reCAPTCHA v3 -->
   <script src="https://www.google.com/recaptcha/api.js?render=6LfeyJArAAAAACsL8QodlIiLoKzOKtkbeGHvVMxE"></script>
+  <!-- EmailJS (client-side email sending) -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head> 
 <body>
  <!-- <header style="position: relative; height: 100vh; background: url('images/8\ \(1\).png') center/cover no-repeat; color: white; display: flex; align-items: center; justify-content: flex-start; padding-left: 5%;">
@@ -609,28 +611,119 @@
     document.getElementById('playbookModal').style.display = 'none';
   }
 
-  grecaptcha.ready(function () {
-    document.getElementById('register-form').addEventListener('submit', function (e) {
-      e.preventDefault();
+  // EmailJS configuration (fill these with your actual values)
+  const EMAILJS_PUBLIC_KEY = '';
+  const EMAILJS_SERVICE_ID = '';
+  const EMAILJS_TEMPLATE_ID_USER = '';
+  const EMAILJS_TEMPLATE_ID_ADMIN = '';
+  const ADMIN_EMAIL = '';
 
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
+  function isEmailJsConfigured() {
+    return (
+      typeof window !== 'undefined' &&
+      window.emailjs &&
+      EMAILJS_PUBLIC_KEY &&
+      EMAILJS_SERVICE_ID &&
+      (EMAILJS_TEMPLATE_ID_USER || EMAILJS_TEMPLATE_ID_ADMIN)
+    );
+  }
 
-      if (!name || !email || !phone) {
-        alert("Please fill in all fields.");
-        return;
+  (function initEmailJsIfNeeded() {
+    if (isEmailJsConfigured()) {
+      try {
+        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+      } catch (err) {
+        console.warn('EmailJS init failed:', err);
       }
+    }
+  })();
 
-      grecaptcha.execute('6LfeyJArAAAAACsL8QodlIiLoKzOKtkbeGHvVMxE', { action: 'submit' }).then(function (token) {
-        console.log('reCAPTCHA token:', token);
-        console.log('Form Submitted:', { name, email, phone });
+  async function sendEmailsAfterSubmit(name, email, phone) {
+    if (!isEmailJsConfigured()) return;
+    const tasks = [];
+    if (EMAILJS_TEMPLATE_ID_USER) {
+      tasks.push(
+        emailjs
+          .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID_USER, {
+            to_email: email,
+            to_name: name,
+            from_name: 'The AWAKE Method',
+            phone,
+          })
+          .catch(err => console.warn('EmailJS user email failed:', err))
+      );
+    }
+    if (EMAILJS_TEMPLATE_ID_ADMIN && ADMIN_EMAIL) {
+      tasks.push(
+        emailjs
+          .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID_ADMIN, {
+            to_email: ADMIN_EMAIL,
+            from_name: 'Website Lead',
+            name,
+            email,
+            phone,
+          })
+          .catch(err => console.warn('EmailJS admin email failed:', err))
+      );
+    }
+    try {
+      await Promise.all(tasks);
+    } catch (err) {
+      // Already logged per-task; no further action needed
+    }
+  }
 
-        // Show the download button and hide the form
-        document.getElementById('register-form').style.display = 'none';
-        document.getElementById('form-description').style.display = 'none';
-        document.getElementById('download-button').style.display = 'inline-block';
-      });
+  document.getElementById('register-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+
+    if (!name || !email || !phone) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
+    grecaptcha.ready(function () {
+      grecaptcha
+        .execute('6LfeyJArAAAAACsL8QodlIiLoKzOKtkbeGHvVMxE', { action: 'submit' })
+        .then(function (token) {
+          const formData = new URLSearchParams();
+          formData.append('name', name);
+          formData.append('email', email);
+          formData.append('phone', phone);
+          formData.append('recaptcha_token', token);
+
+          return fetch(
+            'https://script.google.com/a/macros/ceciliareinaldo.com/s/AKfycbz29git9jqnbHqGTBldvkF_hphqba4Xv8rxGH71MPrPLlJZSYk7oDexgD2I51l09PH5/exec',
+            {
+              method: 'POST',
+              body: formData,
+            }
+          )
+            .then(res => {
+              // Best-effort parse; Apps Script often returns JSON
+              try {
+                return res.json();
+              } catch (_) {
+                return null;
+              }
+            })
+            .catch(err => {
+              console.error('Submission error:', err);
+              return null;
+            })
+            .finally(() => {
+              // Fire-and-forget emails; do not block UI
+              sendEmailsAfterSubmit(name, email, phone);
+
+              // Update UI regardless, so users can access the download link
+              document.getElementById('register-form').style.display = 'none';
+              document.getElementById('form-description').style.display = 'none';
+              document.getElementById('download-button').style.display = 'inline-block';
+            });
+        });
     });
   });
 
@@ -646,35 +739,7 @@
     track.style.transform = `translateX(-${scrollIndex * itemWidth}px)`;
   }
 
-document.getElementById('register-form').addEventListener('submit', function (e) {
-  e.preventDefault();
-
-  const name = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-
-  const formData = new URLSearchParams();
-  formData.append('name', name);
-  formData.append('email', email);
-  formData.append('phone', phone);
-
-  fetch('https://script.google.com/a/macros/ceciliareinaldo.com/s/AKfycbz29git9jqnbHqGTBldvkF_hphqba4Xv8rxGH71MPrPLlJZSYk7oDexgD2I51l09PH5/exec', {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log('Success:', data);
-
-    // Update UI
-    document.getElementById('register-form').style.display = 'none';
-    document.getElementById('form-description').style.display = 'none';
-    document.getElementById('download-button').style.display = 'inline-block';
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
-});
+// (duplicated submit handler removed and merged above)
 
 // document.getElementById('register-form').addEventListener('submit', function (e) {
 //   e.preventDefault();
